@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:multibar="http://schemas.android.com/apk/res/jp.h13i32maru.calorie"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:padding="4dp">
+
+
+		<jp.h13i32maru.calorie.multibar.MultiBar
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			multibar:textSize="12sp"
+			android:id="@+id/multi_bar"/>
+
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:gravity="right">
+		<TextView
+            style="@style/BarButton"
+			android:text="&lt;&lt;"
+			android:id="@+id/dec_button"/>
+		<TextView
+            style="@style/BarButton"
+            android:text="&lt;"
+            android:id="@+id/dec_slow_button"/>
+		<TextView
+		    style="@style/BarButton"
+			android:text="&gt;"
+			android:id="@+id/inc_slow_button"/>
+		<TextView
+            style="@style/BarButton"
+            android:text="&gt;&gt;"
+            android:id="@+id/inc_button"/>
+	</LinearLayout>
+	
+    <TableLayout
+        android:shrinkColumns="0"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/table_calorie_info"
+        >
+    </TableLayout>
+</LinearLayout>
