@@ -39,6 +39,9 @@ public class ConfigActivity extends Activity {
 		Text.set(this, R.id.max, max);
 	}
 	
+	/**
+	 * 設定を書き込みます
+	 */
 	protected void saveConfig(){
 		int limit = Text.get(this, R.id.limit, C.config.limit_def_value);
 		int max = Text.get(this, R.id.max, C.config.max_def_value);
