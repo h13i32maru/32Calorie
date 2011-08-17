@@ -28,6 +28,9 @@ public class ConfigActivity extends Activity {
 		super.finish();
 	}
 	
+	/**
+	 * 設定を読み込みます
+	 */
 	protected void loadConfig(){
 		int limit = mPref.getInt(C.config.limit, C.config.limit_def_value);
 		int max = mPref.getInt(C.config.max, C.config.max_def_value);
