@@ -5,14 +5,21 @@ import org.json.JSONException;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 
 public class Pref {
+    
+    private static final String VERSION_CODE = "pref_version_code";
     
     private static final String PREF_NAME = "pref";
     
     private static Pref instance = null;
     
     private SharedPreferences pref;
+    
+    private Context context;
     
     public static Pref getInstance(Context c){
         if(instance == null){
@@ -22,7 +29,26 @@ public class Pref {
     }
     
     private Pref(Context c){
+        context = c;
         pref = c.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+    }
+    
+    public int setVersionCode(){
+        int versionCode = -1;
+        PackageManager pm = context.getPackageManager();
+        try {
+            PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
+            versionCode = pi.versionCode;
+            putInt(VERSION_CODE, versionCode);
+        } catch (NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        
+        return versionCode;
+    }
+    
+    public int getVersionCode(){
+        return getInt(VERSION_CODE, -1);
     }
     
     public boolean remove(String key){

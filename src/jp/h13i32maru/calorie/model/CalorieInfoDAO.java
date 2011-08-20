@@ -32,6 +32,9 @@ public class CalorieInfoDAO {
 	
 	public CalorieInfoDAO(Context context){
 		mPref = Pref.getInstance(context);
+
+		//今後アプリのバージョンが上がったときに、保存されている値をアップデートするのに使う
+		mPref.setVersionCode();
 	}
 	
 	public List<CalorieInfo> getList(){

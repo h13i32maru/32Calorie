@@ -11,7 +11,6 @@ import jp.h13i32maru.calorie.model.Pref;
 import jp.h13i32maru.calorie.multibar.MultiBar;
 import jp.h13i32maru.calorie.widget.CalorieWidget;
 import android.app.Activity;
-import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
