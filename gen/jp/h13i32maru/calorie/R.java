@@ -58,6 +58,7 @@ containing a value of this type.
     }
     public static final class style {
         public static final int BarButton=0x7f060000;
+        public static final int Theme_Help=0x7f060001;
     }
     public static final class xml {
         public static final int widget=0x7f040000;
