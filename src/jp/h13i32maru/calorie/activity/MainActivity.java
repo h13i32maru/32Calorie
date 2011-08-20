@@ -242,7 +242,7 @@ public class MainActivity extends Activity {
     	public boolean onTouch(View v, MotionEvent event) {
     		switch(event.getAction()){
     		case MotionEvent.ACTION_DOWN:
-    			v.setBackgroundColor(Color.rgb(0xff, 0x88, 0x44));
+    		    v.setBackgroundDrawable(getResources().getDrawable(R.drawable.round_corner_arrow));
     			mMultiBar.start(mSelectedCalorie, mDelta, mInterval);
     			return true;
     		case MotionEvent.ACTION_UP:

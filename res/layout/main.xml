@@ -5,7 +5,6 @@
 	android:layout_height="fill_parent"
 	android:padding="4dp">
 
-
 	<jp.h13i32maru.calorie.multibar.MultiBar
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
@@ -17,6 +16,7 @@
 		android:layout_height="wrap_content"
 		android:orientation="horizontal"
 		android:gravity="right"
+		android:layout_marginTop="4dp"
 		android:layout_marginBottom="8dp">
 		<TextView
             style="@style/BarButton"
