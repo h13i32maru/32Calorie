@@ -119,6 +119,7 @@ public class MultiBar extends View {
 					
 					if(totalValue > mMaxValue){
 						value = value - (totalValue - mMaxValue);
+						totalValue = mMaxValue;
 						bar.setValue(value);
 						mStartFlag = false;
 					}
