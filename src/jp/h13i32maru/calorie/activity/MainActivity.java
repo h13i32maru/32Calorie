@@ -143,16 +143,6 @@ public class MainActivity extends Activity {
         
         return true;
     }
-    
-    /*
-    protected void restoreCalorieInfoList(){
-    	mMultiBar.clearAllBar();
-        mCalorieInfoList = mCalorieInfoDAO.getList();
-        for(CalorieInfo c: mCalorieInfoList){
-        	mMultiBar.addBar(c.getName(), c.getValue(), c.getColor());
-        }
-    }
-    */
 
     protected void initButton(){
     	View incButton = findViewById(R.id.inc_button);
