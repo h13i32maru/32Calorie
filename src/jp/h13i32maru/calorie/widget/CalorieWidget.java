@@ -3,6 +3,7 @@ package jp.h13i32maru.calorie.widget;
 import jp.h13i32maru.calorie.R;
 import jp.h13i32maru.calorie.activity.MainActivity;
 import jp.h13i32maru.calorie.multibar.MultiBar;
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.appwidget.AppWidgetProviderInfo;
@@ -52,9 +53,14 @@ public class CalorieWidget extends AppWidgetProvider {
             MainActivity.restoreCalorieInfoList(bar);
             Bitmap bitmap = bar.getDrawingCache();
             
-            RemoteViews remoteView = new RemoteViews(context.getPackageName(), R.layout.widget);
-            remoteView.setImageViewBitmap(R.id.bar_image, bitmap);
-            appWidgetManager.updateAppWidget(appWidgetId, remoteView);
+            RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
+            remoteViews.setImageViewBitmap(R.id.bar_image, bitmap);
+            
+            Intent intent = new Intent(context, MainActivity.class);
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent, 0);
+            remoteViews.setOnClickPendingIntent(R.id.bar_image, pendingIntent);
+            
+            appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
         }
     }
 }
