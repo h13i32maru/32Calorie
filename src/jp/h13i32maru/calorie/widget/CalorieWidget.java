@@ -3,28 +3,39 @@ package jp.h13i32maru.calorie.widget;
 import jp.h13i32maru.calorie.R;
 import jp.h13i32maru.calorie.activity.MainActivity;
 import jp.h13i32maru.calorie.multibar.MultiBar;
-import jp.h13i32maru.calorie.util._Log;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.appwidget.AppWidgetProviderInfo;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 import android.widget.RemoteViews;
 
 public class CalorieWidget extends AppWidgetProvider {
+    
+    public static void update(Context context){
+        AppWidgetManager manager = AppWidgetManager.getInstance(context);
+        int[] ids = manager.getAppWidgetIds(new ComponentName(context, CalorieWidget.class));
+        
+        Intent intent = new Intent(context, CalorieWidget.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+        
+        context.sendBroadcast(intent);
+    }
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
-
+        
         DisplayMetrics metrics = new DisplayMetrics();
         WindowManager wm = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
         wm.getDefaultDisplay().getMetrics(metrics);
         
         int padding = 4 * (int)metrics.density;
-
 	
         for (int appWidgetId : appWidgetIds) {
             AppWidgetProviderInfo info = appWidgetManager.getAppWidgetInfo(appWidgetId);

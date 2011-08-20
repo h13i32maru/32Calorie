@@ -9,6 +9,7 @@ import jp.h13i32maru.calorie.model.CalorieInfo;
 import jp.h13i32maru.calorie.model.CalorieInfoDAO;
 import jp.h13i32maru.calorie.model.Pref;
 import jp.h13i32maru.calorie.multibar.MultiBar;
+import jp.h13i32maru.calorie.widget.CalorieWidget;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -81,10 +82,10 @@ public class MainActivity extends Activity {
     }
     
     @Override
-    protected void onDestroy(){
-    	super.onDestroy();
-    	
-    	mCalorieInfoDAO.save(mCalorieInfoList);
+    protected void onPause(){
+        super.onPause();
+        mCalorieInfoDAO.save(mCalorieInfoList);
+        CalorieWidget.update(this);
     }
     
     @Override
