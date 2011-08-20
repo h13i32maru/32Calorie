@@ -21,11 +21,12 @@ containing a value of this type.
         public static final int textSize=0x7f010000;
     }
     public static final class drawable {
-        public static final int icon=0x7f020000;
-        public static final int round_corner=0x7f020001;
-        public static final int round_corner_arrow=0x7f020002;
-        public static final int round_corner_calorie_info=0x7f020003;
-        public static final int round_corner_icon=0x7f020004;
+        public static final int help=0x7f020000;
+        public static final int icon=0x7f020001;
+        public static final int round_corner=0x7f020002;
+        public static final int round_corner_arrow=0x7f020003;
+        public static final int round_corner_calorie_info=0x7f020004;
+        public static final int round_corner_icon=0x7f020005;
     }
     public static final class id {
         public static final int bar_image=0x7f07000d;
@@ -45,13 +46,15 @@ containing a value of this type.
     }
     public static final class layout {
         public static final int config=0x7f030000;
-        public static final int main=0x7f030001;
-        public static final int table_row_calorie_info=0x7f030002;
-        public static final int widget=0x7f030003;
+        public static final int help=0x7f030001;
+        public static final int main=0x7f030002;
+        public static final int table_row_calorie_info=0x7f030003;
+        public static final int widget=0x7f030004;
     }
     public static final class string {
         public static final int app_name=0x7f050001;
         public static final int hello=0x7f050000;
+        public static final int help=0x7f050002;
     }
     public static final class style {
         public static final int BarButton=0x7f060000;

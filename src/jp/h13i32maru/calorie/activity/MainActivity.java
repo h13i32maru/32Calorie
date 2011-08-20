@@ -115,6 +115,9 @@ public class MainActivity extends Activity {
         item = menu.add(Menu.NONE, C.menu.config, Menu.NONE, "設定");
         item.setIcon(android.R.drawable.ic_menu_more);
         
+        item = menu.add(Menu.NONE, C.menu.help, Menu.NONE, "ヘルプ");
+        item.setIcon(android.R.drawable.ic_menu_help);
+
         return true;
     }
 
@@ -135,6 +138,12 @@ public class MainActivity extends Activity {
         	startActivityForResult(intent, C.req.config);
         }
         	break;
+        case C.menu.help:
+        {
+            Intent intent = new Intent(this, HelpActivity.class);
+            startActivity(intent);
+        }
+            break;
         default:
         	return false;
         }

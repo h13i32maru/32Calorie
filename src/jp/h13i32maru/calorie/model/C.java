@@ -5,6 +5,7 @@ public class C {
 	public static class menu{
 		public static final int clear = 0;
 		public static final int config = 1;
+		public static final int help = 2;
 	}
 
 	public static class req{

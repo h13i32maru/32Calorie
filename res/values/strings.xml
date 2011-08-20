@@ -2,4 +2,18 @@
 <resources>
     <string name="hello">Hello World, MainActivity!</string>
     <string name="app_name">32Calorie</string>
+    <string name="help">
+32Calorieは一日の摂取カロリーを記録していくアプリです。\n\n
+
+例えば朝食に500カロリーを摂取した場合\n
+(1)「朝食」をタップします\n
+(2)「>>」を押し続けてバーが500に到達したら指を離します\n\n
+
+32Calorieのウィジェットをホーム画面に設置することもできます。\n
+(1) ホーム画面を長押しします\n
+(2) ウィジェットを選択します\n
+(3) 32Calorieを選択します\n\n
+
+記録したカロリーをクリアする場合はメニューの「クリア」を選択してください。\n\n
+最大値と目標値はメニューの「設定」から変更することができます。</string>
 </resources>
