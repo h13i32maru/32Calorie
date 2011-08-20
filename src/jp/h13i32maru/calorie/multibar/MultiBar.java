@@ -271,7 +271,7 @@ public class MultiBar extends View {
 			int color = bar.getColor();
 			int[] colors = new int[2];
 			colors[0] = color;
-			colors[1] = Color.argb(0xff, Color.red(color) / 4, Color.green(color) / 4, Color.blue(color) / 4);
+			colors[1] = Color.argb(0xff, Color.red(color) / 3, Color.green(color) / 3, Color.blue(color) / 3);
 			LinearGradient shader = new LinearGradient(0, 0, 0, bottom - top, colors, null, Shader.TileMode.CLAMP);
 			
 			Paint paint = shape.getPaint();
