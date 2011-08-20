@@ -11,6 +11,7 @@ import jp.h13i32maru.calorie.model.Pref;
 import jp.h13i32maru.calorie.multibar.MultiBar;
 import jp.h13i32maru.calorie.widget.CalorieWidget;
 import android.app.Activity;
+import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -31,6 +32,18 @@ public class MainActivity extends Activity {
     private int mSelectedCalorie = -1;
     private MultiBar mMultiBar;
     private CalorieInfoDAO mCalorieInfoDAO;
+    
+    public static int getRemainColor(int remain){
+        if(remain >= 500){
+            return Color.WHITE;
+        }
+        else if(remain >= 1){
+            return Color.rgb(0xff, 0x88, 0x88);
+        }
+        else{
+            return Color.RED;
+        }
+    }
     
     public static void loadConfig(MultiBar multiBar){
         Pref pref = Pref.getInstance(multiBar.getContext());
@@ -107,10 +120,10 @@ public class MainActivity extends Activity {
     	MenuItem item;
         
         item = menu.add(Menu.NONE , C.menu.clear, Menu.NONE , "クリア");
-        item.setIcon(android.R.drawable.ic_menu_more);
+        item.setIcon(android.R.drawable.ic_menu_delete);
         
         item = menu.add(Menu.NONE, C.menu.config, Menu.NONE, "設定");
-        item.setIcon(android.R.drawable.ic_menu_more);
+        item.setIcon(android.R.drawable.ic_menu_preferences);
         
         item = menu.add(Menu.NONE, C.menu.help, Menu.NONE, "ヘルプ");
         item.setIcon(android.R.drawable.ic_menu_help);
@@ -213,15 +226,7 @@ public class MainActivity extends Activity {
         t = (TextView)findViewById(R.id.remain_text);
         t.setText("残り " + remain);
         
-        if(remain >= 500){
-            t.setTextColor(Color.WHITE);
-        }
-        else if(remain >= 1){
-            t.setTextColor(Color.rgb(0xff, 0x88, 0x88));
-        }
-        else{
-            t.setTextColor(Color.RED);
-        }
+        t.setTextColor(MainActivity.getRemainColor(remain));
     }
     
     protected void selectCalorie(int index){

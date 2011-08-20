@@ -37,7 +37,8 @@ public class CalorieWidget extends AppWidgetProvider {
         wm.getDefaultDisplay().getMetrics(metrics);
         
         int padding = 4 * (int)metrics.density;
-	
+        final int textSize = 8;
+        
         for (int appWidgetId : appWidgetIds) {
             AppWidgetProviderInfo info = appWidgetManager.getAppWidgetInfo(appWidgetId);
             
@@ -45,20 +46,30 @@ public class CalorieWidget extends AppWidgetProvider {
             int height = info.minHeight / 2;
             
             MultiBar bar = new MultiBar(context);
-            bar.setTextSize(16);
+            bar.setTextSize((int)(textSize * metrics.density));
             bar.setSize(width, height);
             bar.layout(0, 0, width, height);
             bar.setDrawingCacheEnabled(true);
             MainActivity.loadConfig(bar);
             MainActivity.restoreCalorieInfoList(bar);
             Bitmap bitmap = bar.getDrawingCache();
+
+            int total = bar.getTotalBarValue();
+            int remain = bar.getGoal() - total;
             
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
             remoteViews.setImageViewBitmap(R.id.bar_image, bitmap);
             
+            remoteViews.setCharSequence(R.id.total_text, "setText", "合計 " + total);
+            remoteViews.setFloat(R.id.total_text, "setTextSize", textSize * 1.5F);
+            
+            remoteViews.setCharSequence(R.id.remain_text, "setText", "残り " + remain);
+            remoteViews.setFloat(R.id.remain_text, "setTextSize", textSize * 1.5F);
+            remoteViews.setInt(R.id.remain_text, "setTextColor", MainActivity.getRemainColor(remain));
+            
             Intent intent = new Intent(context, MainActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent, 0);
-            remoteViews.setOnClickPendingIntent(R.id.bar_image, pendingIntent);
+            remoteViews.setOnClickPendingIntent(R.id.widget_root, pendingIntent);
             
             appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
         }
