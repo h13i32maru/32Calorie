@@ -30,9 +30,9 @@ containing a value of this type.
         public static final int calorie_value=0x7f07000a;
         public static final int dec_button=0x7f070003;
         public static final int dec_slow_button=0x7f070004;
+        public static final int goal=0x7f070000;
         public static final int inc_button=0x7f070006;
         public static final int inc_slow_button=0x7f070005;
-        public static final int limit=0x7f070000;
         public static final int max=0x7f070001;
         public static final int multi_bar=0x7f070002;
         public static final int table_calorie_info=0x7f070007;

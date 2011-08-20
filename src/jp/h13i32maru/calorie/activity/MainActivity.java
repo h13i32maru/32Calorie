@@ -32,9 +32,9 @@ public class MainActivity extends Activity {
     
     public static void loadConfig(MultiBar multiBar){
         Pref pref = Pref.getInstance(multiBar.getContext());
-        int limit = pref.getInt(C.config.limit, C.config.limit_def_value);
+        int goal = pref.getInt(C.config.goal, C.config.goal_def_value);
         int max = pref.getInt(C.config.max, C.config.max_def_value);
-        multiBar.setLimit(limit);
+        multiBar.setGoal(goal);
         multiBar.setMax(max);
     }
     

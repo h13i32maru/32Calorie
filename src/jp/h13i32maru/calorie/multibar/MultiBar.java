@@ -25,7 +25,7 @@ public class MultiBar extends View {
 	private OnProgressListener mOnProgress;
 	private List<Bar> mBarList = new ArrayList<Bar>();
 	private volatile boolean mStartFlag = false;
-	private int mLimitValue = 2000;
+	private int mGoalValue = 2000;
 	private int mMaxValue = 2500;
 	private int mTextBarSpace = 0;
 	private Paint mPaintText;
@@ -42,8 +42,8 @@ public class MultiBar extends View {
 		initAttribute(context, attrs);
 	}
 	
-	public void setLimit(int limit){
-		mLimitValue = limit;
+	public void setGoal(int goal){
+		mGoalValue = goal;
 		postInvalidate();
 	}
 	
@@ -184,8 +184,8 @@ public class MultiBar extends View {
 	
 		drawAllBar(canvas);
 		
-		int limitLeft = mBarWidth * mLimitValue / mMaxValue; 
-		rect = new Rect(limitLeft, getBarTop(), limitLeft + 1, getBarTop() + mBarHeight);
+		int goalLeft = mBarWidth * mGoalValue / mMaxValue; 
+		rect = new Rect(goalLeft, getBarTop(), goalLeft + 1, getBarTop() + mBarHeight);
 		paint = new Paint();
 		paint.setStyle(Paint.Style.FILL);
 		paint.setColor(Color.RED);
@@ -195,7 +195,7 @@ public class MultiBar extends View {
 		    int textTop = (int)(getPaddingTop() - mPaintText.ascent());
             canvas.drawText("0", 0, textTop, mPaintText);
             canvas.drawText("" + mMaxValue, getMeasuredWidth() - mPaintText.measureText("" + mMaxValue), textTop, mPaintText);
-		    canvas.drawText("" + mLimitValue, limitLeft - mPaintText.measureText("" + mLimitValue) / 2, textTop, mPaintText);
+		    canvas.drawText("" + mGoalValue, goalLeft - mPaintText.measureText("" + mGoalValue) / 2, textTop, mPaintText);
 		}
 	}
 

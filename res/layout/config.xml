@@ -16,12 +16,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Limit"/>
+                android:text="目標"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minEms="4"
-                android:id="@+id/limit"
+                android:id="@+id/goal"
                 android:inputType="number"/>
     </TableRow>
         
@@ -31,7 +31,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Max"/>
+                android:text="上限"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

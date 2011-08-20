@@ -32,10 +32,10 @@ public class ConfigActivity extends Activity {
 	 * 設定を読み込みます
 	 */
 	protected void loadConfig(){
-		int limit = mPref.getInt(C.config.limit, C.config.limit_def_value);
+		int goal = mPref.getInt(C.config.goal, C.config.goal_def_value);
 		int max = mPref.getInt(C.config.max, C.config.max_def_value);
 		
-		Text.set(this, R.id.limit, limit);
+		Text.set(this, R.id.goal, goal);
 		Text.set(this, R.id.max, max);
 	}
 	
@@ -43,10 +43,10 @@ public class ConfigActivity extends Activity {
 	 * 設定を書き込みます
 	 */
 	protected void saveConfig(){
-		int limit = Text.get(this, R.id.limit, C.config.limit_def_value);
+		int goal = Text.get(this, R.id.goal, C.config.goal_def_value);
 		int max = Text.get(this, R.id.max, C.config.max_def_value);
 		
-		mPref.putInt(C.config.limit, limit);
+		mPref.putInt(C.config.goal, goal);
 		mPref.putInt(C.config.max, max);
 	}
 }
