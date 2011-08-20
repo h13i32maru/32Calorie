@@ -32,6 +32,10 @@ public class MultiBar extends View {
 	private int mBarWidth;
 	private int mBarHeight;
 	
+	public MultiBar(Context context){
+	    super(context);
+	}
+	
 	public MultiBar(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		
@@ -147,24 +151,29 @@ public class MultiBar extends View {
 		mStartFlag = false;
 	}
 	
+	public void setTextSize(int textSize){
+	    if(textSize <= 0){
+	        mPaintText = null;
+	        return;
+	    }
+	    
+	    mPaintText = new Paint();
+        mPaintText.setTextSize(textSize);
+        mPaintText.setAntiAlias(true);
+        mPaintText.setColor(Color.WHITE);
+	}
+	
 	protected void initAttribute(Context context, AttributeSet attrs){
 		TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MultiBar);
 		
 		int textSize = typedArray.getDimensionPixelSize(R.styleable.MultiBar_textSize, 16);
-		mPaintText = new Paint();
-		mPaintText.setTextSize(textSize);
-		mPaintText.setAntiAlias(true);
-		mPaintText.setColor(Color.WHITE);
+		setTextSize(textSize);
 	}
 	
 	@Override
 	protected void onDraw(Canvas canvas){
 		super.onDraw(canvas);
 
-		int textTop = (int)(getPaddingTop() - mPaintText.ascent());
-		canvas.drawText("0", 0, textTop, mPaintText);
-		canvas.drawText("" + mMaxValue, getMeasuredWidth() - mPaintText.measureText("2000"), textTop, mPaintText);
-		
 		Rect rect = new Rect(0, getBarTop(), mBarWidth, getBarTop() + mBarHeight);
 		RectF rectF = new RectF(rect);
 		Paint paint = new Paint();
@@ -180,11 +189,20 @@ public class MultiBar extends View {
 		paint.setStyle(Paint.Style.FILL);
 		paint.setColor(Color.RED);
 		canvas.drawRect(rect, paint);
-		canvas.drawText("" + mLimitValue, limitLeft - mPaintText.measureText("" + mLimitValue) / 2, textTop, mPaintText);
-		
+				
+		if(mPaintText != null){
+		    int textTop = (int)(getPaddingTop() - mPaintText.ascent());
+            canvas.drawText("0", 0, textTop, mPaintText);
+            canvas.drawText("" + mMaxValue, getMeasuredWidth() - mPaintText.measureText("" + mMaxValue), textTop, mPaintText);
+		    canvas.drawText("" + mLimitValue, limitLeft - mPaintText.measureText("" + mLimitValue) / 2, textTop, mPaintText);
+		}
 	}
 
 	protected int getBarTop(){
+	    if(mPaintText == null){
+	        return 0;
+	    }
+	    
 		FontMetrics fontMetrics = mPaintText.getFontMetrics();
 		return (int)(-fontMetrics.top + fontMetrics.bottom + mTextBarSpace);
 	}
@@ -243,6 +261,13 @@ public class MultiBar extends View {
 				canvas.drawRect(left + halfWidth, top + halfWidth, right - halfWidth, bottom - halfWidth, paint);
 			}
 		}
+	}
+	
+	public void setSize(int width, int height){
+	    mBarWidth = width;
+	    mBarHeight = height - getBarTop();
+	    
+	    setMeasuredDimension(width, height);
 	}
 	
 	@Override
