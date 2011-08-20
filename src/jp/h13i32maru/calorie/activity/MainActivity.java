@@ -12,6 +12,7 @@ import jp.h13i32maru.calorie.multibar.MultiBar;
 import jp.h13i32maru.calorie.widget.CalorieWidget;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -76,11 +77,7 @@ public class MainActivity extends Activity {
     			TextView t = (TextView)mTableRowCalorieInfoList.get(index).findViewById(R.id.calorie_value);
     			t.setText("" + value);
     			
-    			t = (TextView)findViewById(R.id.total_text);
-    			t.setText("合計 " + totalValue);
-    			
-    			t = (TextView)findViewById(R.id.remain_text);
-    			t.setText("残り " + (mMultiBar.getGoal() - totalValue));
+    			setSummary();
     		}
     	});
     }
@@ -202,13 +199,29 @@ public class MainActivity extends Activity {
         	mTableRowCalorieInfoList.add(tableRow);
         }
         
+        setSummary();
+    }
+    
+    protected void setSummary(){
+        int totalValue = mMultiBar.getTotalBarValue();
         TextView t;
         
         t = (TextView)findViewById(R.id.total_text);
-        t.setText("合計 " + mMultiBar.getTotalBarValue());
+        t.setText("合計 " + totalValue);
         
+        int remain = mMultiBar.getGoal() - totalValue;
         t = (TextView)findViewById(R.id.remain_text);
-        t.setText("残り " + (mMultiBar.getGoal() - mMultiBar.getTotalBarValue()));
+        t.setText("残り " + remain);
+        
+        if(remain >= 500){
+            t.setTextColor(Color.WHITE);
+        }
+        else if(remain >= 1){
+            t.setTextColor(Color.rgb(0xff, 0x88, 0x88));
+        }
+        else{
+            t.setTextColor(Color.RED);
+        }
     }
     
     protected void selectCalorie(int index){
