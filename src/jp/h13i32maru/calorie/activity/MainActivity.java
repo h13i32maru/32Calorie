@@ -14,6 +14,9 @@ import jp.h13i32maru.calorie.widget.CalorieWidget;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ShapeDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -187,7 +190,9 @@ public class MainActivity extends Activity {
         	CalorieInfo c = mCalorieInfoList.get(i);
         	
         	View view = tableRow.findViewById(R.id.caloire_icon);
-        	view.setBackgroundColor(c.getColor());
+        	Drawable d = getResources().getDrawable(R.drawable.round_corner_icon);
+        	d.setColorFilter(c.getColor(), PorterDuff.Mode.SRC);
+        	view.setBackgroundDrawable(d);
         	
         	TextView nameText = (TextView)tableRow.findViewById(R.id.calorie_name);
         	nameText.setText(c.getName());
