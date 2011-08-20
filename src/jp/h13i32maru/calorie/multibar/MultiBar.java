@@ -4,14 +4,19 @@ import java.util.List;
 
 import jp.h13i32maru.calorie.R;
 import jp.h13i32maru.calorie.util._Log;
+import android.R.color;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
+import android.graphics.RadialGradient;
 import android.graphics.Paint.FontMetrics;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Shader;
+import android.graphics.SweepGradient;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.util.AttributeSet;
@@ -179,15 +184,19 @@ public class MultiBar extends View {
 	protected void onDraw(Canvas canvas){
 		super.onDraw(canvas);
 
+		//背景バーの描画
 		Rect rect = new Rect(0, getBarTop(), mBarWidth, getBarTop() + mBarHeight);
 		RectF rectF = new RectF(rect);
+		Shader shader = new LinearGradient(0, 0, 0, rect.bottom, Color.rgb(0xff, 0xff, 0xff), Color.rgb(0x44, 0x44, 0x44), Shader.TileMode.CLAMP);
 		Paint paint = new Paint();
 		paint.setStyle(Paint.Style.FILL);
-		paint.setColor(Color.WHITE);
+		paint.setShader(shader);
 		canvas.drawRoundRect(rectF, BAR_RADIUS_X, BAR_RADIUS_Y, paint);
 	
+		//各バーの描画
 		drawAllBar(canvas);
 		
+		//目標ラインの描画
 		int goalLeft = mBarWidth * mGoalValue / mMaxValue; 
 		rect = new Rect(goalLeft, getBarTop(), goalLeft + 1, getBarTop() + mBarHeight);
 		paint = new Paint();
@@ -195,6 +204,7 @@ public class MultiBar extends View {
 		paint.setColor(Color.RED);
 		canvas.drawRect(rect, paint);
 				
+		//テキストの描画
 		if(mPaintText != null){
 		    int textTop = (int)(getPaddingTop() - mPaintText.ascent());
             canvas.drawText("0", 0, textTop, mPaintText);
@@ -258,9 +268,15 @@ public class MultiBar extends View {
 			ShapeDrawable shape = new ShapeDrawable(round);
 			shape.setBounds(left, top, right, bottom);
 			
+			int color = bar.getColor();
+			int[] colors = new int[2];
+			colors[0] = color;
+			colors[1] = Color.argb(0xff, Color.red(color) / 4, Color.green(color) / 4, Color.blue(color) / 4);
+			LinearGradient shader = new LinearGradient(0, 0, 0, bottom - top, colors, null, Shader.TileMode.CLAMP);
+			
 			Paint paint = shape.getPaint();
 			paint.setStyle(Paint.Style.FILL);
-			paint.setColor(bar.getColor());
+			paint.setShader(shader);
 
 			shape.draw(canvas);
 			
