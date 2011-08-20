@@ -213,6 +213,7 @@ public class MultiBar extends View {
 		int right = 0;
 		int bottom = top + mBarHeight;
 		
+		//最初と最後のバーを探して保存しておく
 		int first = -1;
 		int last = 0;
 		for(int i = 0; i < mBarList.size(); i++){
@@ -230,17 +231,23 @@ public class MultiBar extends View {
 			right = left + (mBarWidth * bar.getValue() / mMaxValue);
 
 			float[] outer = new float[]{0, 0, 0, 0, 0, 0, 0, 0};
+			//最初のバーの場合は左側を角丸にする
 			if(i == first){
 				outer[0] = BAR_RADIUS_X;
 				outer[1] = BAR_RADIUS_Y;
 				outer[6] = BAR_RADIUS_X;
 				outer[7] = BAR_RADIUS_Y;
 			}
+			//最後のバーの場合は右側を角丸にする
 			if(i == last && getTotalBarValue() == mMaxValue){
 				outer[2] = BAR_RADIUS_X;
 				outer[3] = BAR_RADIUS_Y;
 				outer[4] = BAR_RADIUS_X;
 				outer[5] = BAR_RADIUS_Y;
+				
+				//最後のバーの場合、整数の計算で切り捨てが発生して少し隙間ができる場合があるのでぴったりになるように調整する
+				//バーの書き始めが0座標であることを前提にしている。
+				right = mBarWidth;
 			}
 			RoundRectShape round = new RoundRectShape(outer, null, null);
 			ShapeDrawable shape = new ShapeDrawable(round);
