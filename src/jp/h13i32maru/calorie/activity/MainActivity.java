@@ -230,7 +230,8 @@ public class MainActivity extends Activity {
     			mTableRowCalorieInfoList.get(mSelectedCalorie).setBackgroundDrawable(null);
     		}
     		mMultiBar.setBarSelected(index);
-    		mTableRowCalorieInfoList.get(index).setBackgroundColor(Color.rgb(0x44, 0x44, 0x44));
+    		mTableRowCalorieInfoList.get(index).setBackgroundDrawable(getResources().getDrawable(R.drawable.round_corner_calorie_info));
+    		//mTableRowCalorieInfoList.get(index).setBackgroundColor(Color.rgb(0x44, 0x44, 0x44));
     		mSelectedCalorie = index;
     	}
     }
