@@ -42,6 +42,10 @@ public class MultiBar extends View {
 		initAttribute(context, attrs);
 	}
 	
+	public int getGoal(){
+	    return mGoalValue;
+	}
+	
 	public void setGoal(int goal){
 		mGoalValue = goal;
 		postInvalidate();

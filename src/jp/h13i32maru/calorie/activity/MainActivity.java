@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jp.h13i32maru.calorie.R;
+import jp.h13i32maru.calorie.R.id;
 import jp.h13i32maru.calorie.model.C;
 import jp.h13i32maru.calorie.model.CalorieInfo;
 import jp.h13i32maru.calorie.model.CalorieInfoDAO;
@@ -75,8 +76,11 @@ public class MainActivity extends Activity {
     			TextView t = (TextView)mTableRowCalorieInfoList.get(index).findViewById(R.id.calorie_value);
     			t.setText("" + value);
     			
-    			t = (TextView)findViewById(R.id.total_calorie_value);
-    			t.setText("" + totalValue);
+    			t = (TextView)findViewById(R.id.total_text);
+    			t.setText("合計 " + totalValue);
+    			
+    			t = (TextView)findViewById(R.id.remain_text);
+    			t.setText("残り " + (mMultiBar.getGoal() - totalValue));
     		}
     	});
     }
@@ -195,10 +199,13 @@ public class MainActivity extends Activity {
         	mTableRowCalorieInfoList.add(tableRow);
         }
         
-        TableRow tableRow = (TableRow)inflater.inflate(R.layout.table_row_total, null);
-        TextView t = (TextView)tableRow.findViewById(R.id.total_calorie_value);
-        t.setText("" + mMultiBar.getTotalBarValue());
-        tableLayout.addView(tableRow);
+        TextView t;
+        
+        t = (TextView)findViewById(R.id.total_text);
+        t.setText("合計 " + mMultiBar.getTotalBarValue());
+        
+        t = (TextView)findViewById(R.id.remain_text);
+        t.setText("残り " + (mMultiBar.getGoal() - mMultiBar.getTotalBarValue()));
     }
     
     protected void selectCalorie(int index){
