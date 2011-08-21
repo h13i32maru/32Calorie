@@ -27,7 +27,7 @@ public class MultiBar extends View {
 	private OnProgressListener mOnProgress;
 	private List<Bar> mBarList = new ArrayList<Bar>();
 	private volatile boolean mStartFlag = false;
-	private int mGoalValue = 2000;
+	private int mGoalValue = 1800;
 	private int mMaxValue = 2500;
 	private int mTextBarSpace = 0;
 	private Paint mPaintText;
@@ -269,7 +269,10 @@ public class MultiBar extends View {
 			int[] colors = new int[2];
 			colors[0] = color;
 			colors[1] = Color.argb(0xff, Color.red(color) / 3, Color.green(color) / 3, Color.blue(color) / 3);
-			LinearGradient shader = new LinearGradient(0, 0, 0, bottom - top, colors, null, Shader.TileMode.CLAMP);
+			float[] positions = new float[2];
+			positions[0] = 0;
+			positions[1] = 1F;
+			LinearGradient shader = new LinearGradient(0, 0, 0, bottom - top, colors, positions, Shader.TileMode.CLAMP);
 			
 			Paint paint = shape.getPaint();
 			paint.setStyle(Paint.Style.FILL);
