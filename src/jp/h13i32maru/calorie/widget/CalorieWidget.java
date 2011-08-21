@@ -45,7 +45,12 @@ public class CalorieWidget extends AppWidgetProvider {
             int height = (int)(info.minHeight / 2.25);
             
             MultiBar bar = new MultiBar(context);
-            bar.setTextSize(18);
+            if(metrics.density >= 2){
+                bar.setTextSize(18);
+            }
+            else{
+                bar.setTextSize(16);
+            }
             bar.setSize(width, height);
             bar.layout(0, 0, width, height);
             bar.setDrawingCacheEnabled(true);
