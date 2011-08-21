@@ -26,6 +26,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
+    private static final String FIRST_LAUNDH = "first_launch";
+    
     private List<CalorieInfo> mCalorieInfoList;
     private List<TableRow> mTableRowCalorieInfoList = new ArrayList<TableRow>();
     private int mSelectedCalorie = -1;
@@ -92,6 +94,13 @@ public class MainActivity extends Activity {
     			setSummary();
     		}
     	});
+        
+        Pref pref = Pref.getInstance(this);
+        if(pref.getBoolean(FIRST_LAUNDH, true)){
+            pref.putBoolean(FIRST_LAUNDH, false);
+            Intent intent = new Intent(this, HelpActivity.class);
+            startActivity(intent);
+        }
     }
     
     @Override
