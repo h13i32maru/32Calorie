@@ -14,7 +14,7 @@ public class C {
 	
 	public static class config{
 		public static final String goal = "goal";
-		public static final int goal_def_value = 2000;
+		public static final int goal_def_value = 1800;
 		
 		public static final String max = "max";
 		public static final int max_def_value = 2500;
