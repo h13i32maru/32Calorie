@@ -58,6 +58,10 @@ public class CalorieInfo {
 		return mColor;
 	}
 	
+	public void setName(String name){
+	    mName = name;
+	}
+	
 	public void setValue(int value){
 		mValue = value;
 	}

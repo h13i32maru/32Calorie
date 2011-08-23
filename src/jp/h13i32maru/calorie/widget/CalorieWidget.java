@@ -65,15 +65,15 @@ public class CalorieWidget extends AppWidgetProvider {
             Bitmap bitmap = bar.getDrawingCache();
 
             int total = bar.getTotalBarValue();
-            int remain = bar.getGoal() - total;
+            int remain = bar.getTarget() - total;
             
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
             remoteViews.setImageViewBitmap(R.id.bar_image, bitmap);
             
-            remoteViews.setCharSequence(R.id.total_text, "setText", "合計 " + total);
+            remoteViews.setCharSequence(R.id.total_text, "setText", context.getString(R.string.summary_total) + " " + total);
             remoteViews.setFloat(R.id.total_text, "setTextSize", 12);
             
-            remoteViews.setCharSequence(R.id.remain_text, "setText", "残り " + remain);
+            remoteViews.setCharSequence(R.id.remain_text, "setText", context.getString(R.string.summary_remain) + " " + remain);
             remoteViews.setFloat(R.id.remain_text, "setTextSize", 12);
             remoteViews.setInt(R.id.remain_text, "setTextColor", MainActivity.getRemainColor(remain));
             

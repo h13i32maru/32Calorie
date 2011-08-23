@@ -1,19 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, MainActivity!</string>
     <string name="app_name">32Calorie</string>
+    <string name="calorie_name_breakfast">Breakfast</string>
+    <string name="calorie_name_lunch">Lunch</string>
+    <string name="calorie_name_dinner">Dinner</string>
+    <string name="calorie_name_snack">Snack</string>
+    <string name="calorie_name_other">Other</string>
+    <string name="summary_total">Total</string>
+    <string name="summary_remain">Remain</string>
+    <string name="config_category_general">General</string>
+    <string name="config_category_widget">Widget</string>
+    <string name="config_general_target">Target</string>
+    <string name="config_general_max">Maximum</string>
+    <string name="config_widget_background">Background</string>
+    <string name="menu_clear">Clear</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_help">Help</string>
     <string name="help">
-32Calorieは一日の摂取カロリーを記録していくアプリです。\n\n
+32Calorie is an app will record the calories of the day.\n\n
 
-例えば朝食に500カロリーを摂取した場合\n
-(1)「朝食」をタップします\n
-(2)「>>」を押し続けてバーが500に到達したら指を離します\n\n
+If you consume 500 calories for breakfast, for example.\n
+(1) Tap "Breakfast"\n
+(2) Holding down the ">>" and release when the bar reached 500\n\n
 
-32Calorieのウィジェットをホーム画面に設置することもできます。\n
-(1) ホーム画面を長押しします\n
-(2) ウィジェットを選択します\n
-(3) 32Calorieを選択します\n\n
+You can use 32Calorie widget.\n
+(1) Press and hold the home screen\n
+(2) Select a widget\n
+(3) Select 32Calorie\n\n
 
-記録したカロリーをクリアする場合はメニューの「クリア」を選択してください。\n\n
-最大値と目標値はメニューの「設定」から変更することができます。</string>
+To clear the recorded calories, please select "Clear" in the menu.\n\n
+To change maximum and target values, please select "Settings" in the menu.</string>
 </resources>

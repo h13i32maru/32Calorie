@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">32Calorie</string>
+    <string name="calorie_name_breakfast">朝食</string>
+    <string name="calorie_name_lunch">昼食</string>
+    <string name="calorie_name_dinner">夕食</string>
+    <string name="calorie_name_snack">間食</string>
+    <string name="calorie_name_other">その他</string>
+    <string name="summary_total">合計</string>
+    <string name="summary_remain">残り</string>
+    <string name="config_category_general">全般</string>
+    <string name="config_category_widget">ウィジェット</string>
+    <string name="config_general_target">目標</string>
+    <string name="config_general_max">上限</string>
+    <string name="config_widget_background">背景</string>
+    <string name="menu_clear">クリア</string>
+    <string name="menu_settings">設定</string>
+    <string name="menu_help">ヘルプ</string>
+    <string name="help">
+32Calorieは一日の摂取カロリーを記録していくアプリです。\n\n
+
+例えば朝食に500カロリーを摂取した場合\n
+(1)「朝食」をタップします\n
+(2)「>>」を押し続けてバーが500に到達したら指を離します\n\n
+
+32Calorieのウィジェットをホーム画面に設置することもできます。\n
+(1) ホーム画面を長押しします\n
+(2) ウィジェットを選択します\n
+(3) 32Calorieを選択します\n\n
+
+記録したカロリーをクリアする場合はメニューの「クリア」を選択してください。\n\n
+最大値と目標値はメニューの「設定」から変更することができます。</string>
+</resources>

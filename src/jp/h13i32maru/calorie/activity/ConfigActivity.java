@@ -33,8 +33,8 @@ public class ConfigActivity extends Activity {
 	 * 設定を読み込みます
 	 */
 	protected void loadConfig(){
-		int goal = mPref.getInt(C.config.goal, C.config.goal_def_value);
-	    HTextView.set(this, R.id.goal, goal);
+		int target = mPref.getInt(C.config.target, C.config.target_def_value);
+	    HTextView.set(this, R.id.target, target);
 
 		int max = mPref.getInt(C.config.max, C.config.max_def_value);
 		HTextView.set(this, R.id.max, max);
@@ -47,8 +47,8 @@ public class ConfigActivity extends Activity {
 	 * 設定を書き込みます
 	 */
 	protected void saveConfig(){
-		int goal = HTextView.get(this, R.id.goal, C.config.goal_def_value);
-        mPref.putInt(C.config.goal, goal);
+		int target = HTextView.get(this, R.id.target, C.config.target_def_value);
+        mPref.putInt(C.config.target, target);
 
 		int max = HTextView.get(this, R.id.max, C.config.max_def_value);		
 		mPref.putInt(C.config.max, max);

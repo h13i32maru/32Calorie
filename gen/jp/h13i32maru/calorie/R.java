@@ -37,7 +37,6 @@ containing a value of this type.
         public static final int calorie_value=0x7f07000e;
         public static final int dec_button=0x7f070005;
         public static final int dec_slow_button=0x7f070006;
-        public static final int goal=0x7f070000;
         public static final int help_version=0x7f070003;
         public static final int inc_button=0x7f070008;
         public static final int inc_slow_button=0x7f070007;
@@ -45,6 +44,7 @@ containing a value of this type.
         public static final int multi_bar=0x7f070004;
         public static final int remain_text=0x7f07000b;
         public static final int table_calorie_info=0x7f070009;
+        public static final int target=0x7f070000;
         public static final int total_text=0x7f07000a;
         public static final int widget_background=0x7f070002;
         public static final int widget_root=0x7f07000f;
@@ -57,9 +57,23 @@ containing a value of this type.
         public static final int widget=0x7f030004;
     }
     public static final class string {
-        public static final int app_name=0x7f050001;
-        public static final int hello=0x7f050000;
-        public static final int help=0x7f050002;
+        public static final int app_name=0x7f050000;
+        public static final int calorie_name_breakfast=0x7f050001;
+        public static final int calorie_name_dinner=0x7f050003;
+        public static final int calorie_name_lunch=0x7f050002;
+        public static final int calorie_name_other=0x7f050005;
+        public static final int calorie_name_snack=0x7f050004;
+        public static final int config_category_general=0x7f050008;
+        public static final int config_category_widget=0x7f050009;
+        public static final int config_general_max=0x7f05000b;
+        public static final int config_general_target=0x7f05000a;
+        public static final int config_widget_background=0x7f05000c;
+        public static final int help=0x7f050010;
+        public static final int menu_clear=0x7f05000d;
+        public static final int menu_help=0x7f05000f;
+        public static final int menu_settings=0x7f05000e;
+        public static final int summary_remain=0x7f050007;
+        public static final int summary_total=0x7f050006;
     }
     public static final class style {
         public static final int BarButton=0x7f060000;

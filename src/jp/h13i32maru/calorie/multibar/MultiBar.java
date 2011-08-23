@@ -27,7 +27,7 @@ public class MultiBar extends View {
 	private OnProgressListener mOnProgress;
 	private List<Bar> mBarList = new ArrayList<Bar>();
 	private volatile boolean mStartFlag = false;
-	private int mGoalValue = 1800;
+	private int mTargetValue = 1800;
 	private int mMaxValue = 2500;
 	private int mTextBarSpace = 0;
 	private Paint mPaintText;
@@ -44,12 +44,12 @@ public class MultiBar extends View {
 		initAttribute(context, attrs);
 	}
 	
-	public int getGoal(){
-	    return mGoalValue;
+	public int getTarget(){
+	    return mTargetValue;
 	}
 	
-	public void setGoal(int goal){
-		mGoalValue = goal;
+	public void setTarget(int target){
+		mTargetValue = target;
 		postInvalidate();
 	}
 	
@@ -194,8 +194,8 @@ public class MultiBar extends View {
 		drawAllBar(canvas);
 		
 		//目標ラインの描画
-		int goalLeft = mBarWidth * mGoalValue / mMaxValue; 
-		rect = new Rect(goalLeft, getBarTop(), goalLeft + 1, getBarTop() + mBarHeight);
+		int targetLeft = mBarWidth * mTargetValue / mMaxValue; 
+		rect = new Rect(targetLeft, getBarTop(), targetLeft + 1, getBarTop() + mBarHeight);
 		paint = new Paint();
 		paint.setStyle(Paint.Style.FILL);
 		paint.setColor(Color.RED);
@@ -206,7 +206,7 @@ public class MultiBar extends View {
 		    int textTop = (int)(getPaddingTop() - mPaintText.ascent());
             canvas.drawText("0", 0, textTop, mPaintText);
             canvas.drawText("" + mMaxValue, getMeasuredWidth() - mPaintText.measureText("" + mMaxValue), textTop, mPaintText);
-		    canvas.drawText("" + mGoalValue, goalLeft - mPaintText.measureText("" + mGoalValue) / 2, textTop, mPaintText);
+		    canvas.drawText("" + mTargetValue, targetLeft - mPaintText.measureText("" + mTargetValue) / 2, textTop, mPaintText);
 		}
 	}
 

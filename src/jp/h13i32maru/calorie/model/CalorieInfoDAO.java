@@ -3,6 +3,8 @@ package jp.h13i32maru.calorie.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.h13i32maru.calorie.R;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -10,7 +12,7 @@ import android.content.Context;
 import android.graphics.Color;
 
 public class CalorieInfoDAO {
-	private static final String[] mNameArray = {"朝食", "昼食", "夕食", "間食", "その他"};
+	private String[] mNameArray = new String[5];
 	private static final int[] mColorArray = {
 	    Color.argb(0xff, 0xdd, 0x22, 0x22),
 	    Color.argb(0xff, 0xdd, 0xdd, 0x22),
@@ -31,6 +33,12 @@ public class CalorieInfoDAO {
 	}
 	
 	public CalorieInfoDAO(Context context){
+	    mNameArray[0] = context.getString(R.string.calorie_name_breakfast);
+	    mNameArray[1] = context.getString(R.string.calorie_name_lunch);
+	    mNameArray[2] = context.getString(R.string.calorie_name_dinner);
+	    mNameArray[3] = context.getString(R.string.calorie_name_snack);
+	    mNameArray[4] = context.getString(R.string.calorie_name_other);
+	    
 		mPref = Pref.getInstance(context);
 
 		//今後アプリのバージョンが上がったときに、保存されている値をアップデートするのに使う
@@ -47,6 +55,7 @@ public class CalorieInfoDAO {
 		for(int i = 0; i < array.length(); i++){
 			try {
 				CalorieInfo c = CalorieInfo.decodeJSON(array.getString(i));
+				c.setName(mNameArray[i]);
 				list.add(c);
 			} catch (JSONException e) {
 				e.printStackTrace();

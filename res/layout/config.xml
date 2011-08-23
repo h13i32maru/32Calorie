@@ -7,7 +7,7 @@
   
   <TextView
     style="@style/ConfigCategoryTitle"
-    android:text="全般"
+    android:text="@string/config_category_general"
     android:background="@drawable/config_category_title"/>
   
   <TableLayout
@@ -22,13 +22,13 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="目標"
+                android:text="@string/config_general_target"
                 android:textColor="#ffffff"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minEms="4"
-                android:id="@+id/goal"
+                android:id="@+id/target"
                 android:inputType="number"/>
     </TableRow>
         
@@ -38,7 +38,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="上限"
+                android:text="@string/config_general_max"
                 android:textColor="#ffffff"/>
             <EditText
                 android:layout_width="match_parent"
@@ -52,7 +52,7 @@
     
     <TextView
        style="@style/ConfigCategoryTitle"
-       android:text="ウィジェット"
+       android:text="@string/config_category_widget"
        android:background="@drawable/config_category_title"/>
    
     <TableLayout
@@ -66,7 +66,7 @@
 	            <TextView
 	                android:layout_width="match_parent"
 	                android:layout_height="wrap_content"
-	                android:text="背景"
+	                android:text="@string/config_widget_background"
 	                android:textColor="#ffffff"/>
 	            <CheckBox
 	                android:layout_width="wrap_content"

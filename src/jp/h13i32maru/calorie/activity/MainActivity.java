@@ -48,9 +48,9 @@ public class MainActivity extends Activity {
     
     public static void loadConfig(MultiBar multiBar){
         Pref pref = Pref.getInstance(multiBar.getContext());
-        int goal = pref.getInt(C.config.goal, C.config.goal_def_value);
+        int target = pref.getInt(C.config.target, C.config.target_def_value);
         int max = pref.getInt(C.config.max, C.config.max_def_value);
-        multiBar.setGoal(goal);
+        multiBar.setTarget(target);
         multiBar.setMax(max);
     }
     
@@ -127,13 +127,13 @@ public class MainActivity extends Activity {
     	super.onCreateOptionsMenu(menu);
     	MenuItem item;
         
-        item = menu.add(Menu.NONE , C.menu.clear, Menu.NONE , "クリア");
+        item = menu.add(Menu.NONE , C.menu.clear, Menu.NONE , getString(R.string.menu_clear));
         item.setIcon(android.R.drawable.ic_menu_delete);
         
-        item = menu.add(Menu.NONE, C.menu.config, Menu.NONE, "設定");
+        item = menu.add(Menu.NONE, C.menu.settings, Menu.NONE, getString(R.string.menu_settings));
         item.setIcon(android.R.drawable.ic_menu_preferences);
         
-        item = menu.add(Menu.NONE, C.menu.help, Menu.NONE, "ヘルプ");
+        item = menu.add(Menu.NONE, C.menu.help, Menu.NONE, getString(R.string.menu_help));
         item.setIcon(android.R.drawable.ic_menu_help);
 
         return true;
@@ -150,7 +150,7 @@ public class MainActivity extends Activity {
         	mCalorieInfoList = MainActivity.restoreCalorieInfoList(mMultiBar);
         	initTableCalorieInfo();
             break;
-        case C.menu.config:
+        case C.menu.settings:
         {
         	Intent intent = new Intent(this, ConfigActivity.class);
         	startActivityForResult(intent, C.req.config);
@@ -228,11 +228,11 @@ public class MainActivity extends Activity {
         TextView t;
         
         t = (TextView)findViewById(R.id.total_text);
-        t.setText("合計 " + totalValue);
+        t.setText(getString(R.string.summary_total) + " " + totalValue);
         
-        int remain = mMultiBar.getGoal() - totalValue;
+        int remain = mMultiBar.getTarget() - totalValue;
         t = (TextView)findViewById(R.id.remain_text);
-        t.setText("残り " + remain);
+        t.setText(getString(R.string.summary_remain) + " " + remain);
         
         t.setTextColor(MainActivity.getRemainColor(remain));
     }
