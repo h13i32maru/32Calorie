@@ -2,6 +2,8 @@ package jp.h13i32maru.calorie.widget;
 
 import jp.h13i32maru.calorie.R;
 import jp.h13i32maru.calorie.activity.MainActivity;
+import jp.h13i32maru.calorie.model.C;
+import jp.h13i32maru.calorie.model.Pref;
 import jp.h13i32maru.calorie.multibar.MultiBar;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -11,6 +13,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 import android.widget.RemoteViews;
@@ -37,6 +40,9 @@ public class CalorieWidget extends AppWidgetProvider {
         wm.getDefaultDisplay().getMetrics(metrics);
         
         int padding = 4 * (int)metrics.density;
+        
+        Pref pref = Pref.getInstance(context);
+        boolean background = pref.getBoolean(C.config.widget_background, C.config.widget_background_def_value);
         
         for (int appWidgetId : appWidgetIds) {
             AppWidgetProviderInfo info = appWidgetManager.getAppWidgetInfo(appWidgetId);
@@ -74,7 +80,12 @@ public class CalorieWidget extends AppWidgetProvider {
             Intent intent = new Intent(context, MainActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent, 0);
             remoteViews.setOnClickPendingIntent(R.id.widget_root, pendingIntent);
-            
+            if(background){
+                remoteViews.setInt(R.id.widget_root, "setBackgroundResource", R.drawable.round_corner_widget);
+            }
+            else{
+                remoteViews.setInt(R.id.widget_root, "setBackgroundColor", Color.argb(0, 0, 0, 0));
+            }
             appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
         }
     }

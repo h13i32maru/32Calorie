@@ -18,5 +18,8 @@ public class C {
 		
 		public static final String max = "max";
 		public static final int max_def_value = 2500;
+		
+		public static final String widget_background = "widget_background";
+		public static final boolean widget_background_def_value = true;
 	}
 }

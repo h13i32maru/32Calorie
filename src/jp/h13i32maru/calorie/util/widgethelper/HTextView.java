@@ -1,9 +1,9 @@
-package jp.h13i32maru.calorie.util;
+package jp.h13i32maru.calorie.util.widgethelper;
 
 import android.app.Activity;
 import android.widget.TextView;
 
-public class Text {
+public class HTextView {
 
 	public static void set(Activity activity, int id, int value){
 		TextView t = (TextView)activity.findViewById(id);
