@@ -27,6 +27,7 @@ containing a value of this type.
         public static final int round_corner_arrow=0x7f020003;
         public static final int round_corner_calorie_info=0x7f020004;
         public static final int round_corner_icon=0x7f020005;
+        public static final int round_corner_widget=0x7f020006;
     }
     public static final class id {
         public static final int bar_image=0x7f07000f;
