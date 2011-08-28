@@ -14,11 +14,11 @@ import android.graphics.Color;
 public class CalorieInfoDAO {
 	private String[] mNameArray = new String[5];
 	private static final int[] mColorArray = {
-	    Color.argb(0xff, 0xdd, 0x22, 0x22),
-	    Color.argb(0xff, 0xdd, 0xdd, 0x22),
-	    Color.argb(0xff, 0x22, 0xdd, 0x22),
-	    Color.argb(0xff, 0x22, 0x22, 0xdd),
-	    Color.argb(0xff, 0xdd, 0x22, 0xdd)
+	    Color.argb(0xff, 0xf0, 0x51, 0x51),
+	    Color.argb(0xff, 0xff, 0xff, 0x5e),
+	    Color.argb(0xff, 0x83, 0xf1, 0x52),
+	    Color.argb(0xff, 0x52, 0x94, 0xf1),
+	    Color.argb(0xff, 0xe2, 0x74, 0xf4)
 	};
 	private static final String PREF_KEY = "calorie_info";
 	
@@ -56,6 +56,7 @@ public class CalorieInfoDAO {
 			try {
 				CalorieInfo c = CalorieInfo.decodeJSON(array.getString(i));
 				c.setName(mNameArray[i]);
+				c.setColor(mColorArray[i]);
 				list.add(c);
 			} catch (JSONException e) {
 				e.printStackTrace();

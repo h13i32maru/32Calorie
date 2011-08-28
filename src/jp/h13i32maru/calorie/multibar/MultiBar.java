@@ -184,7 +184,7 @@ public class MultiBar extends View {
 		//背景バーの描画
 		Rect rect = new Rect(0, getBarTop(), mBarWidth, getBarTop() + mBarHeight);
 		RectF rectF = new RectF(rect);
-		Shader shader = new LinearGradient(0, 0, 0, rect.bottom, Color.rgb(0xff, 0xff, 0xff), Color.rgb(0x44, 0x44, 0x44), Shader.TileMode.CLAMP);
+		Shader shader = new LinearGradient(0, 0, 0, rect.bottom, Color.rgb(0xff, 0xff, 0xff), Color.rgb(0x88, 0x88, 0x88), Shader.TileMode.CLAMP);
 		Paint paint = new Paint();
 		paint.setStyle(Paint.Style.FILL);
 		paint.setShader(shader);
@@ -268,7 +268,7 @@ public class MultiBar extends View {
 			int color = bar.getColor();
 			int[] colors = new int[2];
 			colors[0] = color;
-			colors[1] = Color.argb(0xff, Color.red(color) / 3, Color.green(color) / 3, Color.blue(color) / 3);
+			colors[1] = Color.argb(0xff, (int)(Color.red(color) / 1.2), (int)(Color.green(color) / 1.2), (int)(Color.blue(color) / 1.2));
 			float[] positions = new float[2];
 			positions[0] = 0;
 			positions[1] = 1F;

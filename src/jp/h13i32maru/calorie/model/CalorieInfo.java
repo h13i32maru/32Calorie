@@ -65,4 +65,8 @@ public class CalorieInfo {
 	public void setValue(int value){
 		mValue = value;
 	}
+	
+	public void setColor(int color){
+	    mColor = color;
+	}
 }
