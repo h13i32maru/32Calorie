@@ -21,5 +21,8 @@ public class C {
 		
 		public static final String widget_background = "widget_background";
 		public static final boolean widget_background_def_value = true;
+		
+		public static final String widget_one_color = "widget_one_color";
+		public static final boolean widget_one_color_def_value = false;
 	}
 }

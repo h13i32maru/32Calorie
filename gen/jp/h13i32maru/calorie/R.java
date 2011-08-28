@@ -35,14 +35,14 @@ containing a value of this type.
         public static final int round_corner_widget=0x7f02000b;
     }
     public static final class id {
-        public static final int bar_image=0x7f070011;
-        public static final int caloire_icon=0x7f07000c;
-        public static final int calorie_delta=0x7f07000f;
-        public static final int calorie_name=0x7f07000d;
-        public static final int calorie_value=0x7f07000e;
+        public static final int bar_image=0x7f070012;
+        public static final int caloire_icon=0x7f07000d;
+        public static final int calorie_delta=0x7f070010;
+        public static final int calorie_name=0x7f07000e;
+        public static final int calorie_value=0x7f07000f;
         public static final int dec_button=0x7f070001;
         public static final int dec_slow_button=0x7f070002;
-        public static final int help_version=0x7f07000b;
+        public static final int help_version=0x7f07000c;
         public static final int inc_button=0x7f070004;
         public static final int inc_slow_button=0x7f070003;
         public static final int max=0x7f070009;
@@ -52,7 +52,8 @@ containing a value of this type.
         public static final int target=0x7f070008;
         public static final int total_text=0x7f070006;
         public static final int widget_background=0x7f07000a;
-        public static final int widget_root=0x7f070010;
+        public static final int widget_one_color=0x7f07000b;
+        public static final int widget_root=0x7f070011;
     }
     public static final class layout {
         public static final int backup_main=0x7f030000;
@@ -74,10 +75,11 @@ containing a value of this type.
         public static final int config_general_max=0x7f05000b;
         public static final int config_general_target=0x7f05000a;
         public static final int config_widget_background=0x7f05000c;
-        public static final int help=0x7f050010;
-        public static final int menu_clear=0x7f05000d;
-        public static final int menu_help=0x7f05000f;
-        public static final int menu_settings=0x7f05000e;
+        public static final int config_widget_one_color=0x7f05000d;
+        public static final int help=0x7f050011;
+        public static final int menu_clear=0x7f05000e;
+        public static final int menu_help=0x7f050010;
+        public static final int menu_settings=0x7f05000f;
         public static final int summary_remain=0x7f050007;
         public static final int summary_total=0x7f050006;
     }

@@ -33,6 +33,7 @@ public class MultiBar extends View {
 	private Paint mPaintText;
 	private int mBarWidth;
 	private int mBarHeight;
+	private int mOneColor = -1;
 	
 	public MultiBar(Context context){
 	    super(context);
@@ -42,6 +43,14 @@ public class MultiBar extends View {
 		super(context, attrs);
 		
 		initAttribute(context, attrs);
+	}
+	
+	/**
+	 * 各バーを同じ色で描画する
+	 * @param color
+	 */
+	public void setOneColor(int color){
+	    mOneColor = color;
 	}
 	
 	public int getTarget(){
@@ -266,6 +275,9 @@ public class MultiBar extends View {
 			shape.setBounds(left, top, right, bottom);
 			
 			int color = bar.getColor();
+			if(mOneColor != -1){
+			    color = mOneColor;
+			}
 			int[] colors = new int[2];
 			colors[0] = color;
 			colors[1] = Color.argb(0xff, (int)(Color.red(color) / 1.2), (int)(Color.green(color) / 1.2), (int)(Color.blue(color) / 1.2));

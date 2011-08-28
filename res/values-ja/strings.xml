@@ -12,7 +12,8 @@
     <string name="config_category_widget">ウィジェット</string>
     <string name="config_general_target">目標</string>
     <string name="config_general_max">上限</string>
-    <string name="config_widget_background">背景</string>
+    <string name="config_widget_background">背景表示</string>
+    <string name="config_widget_one_color">1色表示</string>
     <string name="menu_clear">クリア</string>
     <string name="menu_settings">設定</string>
     <string name="menu_help">ヘルプ</string>

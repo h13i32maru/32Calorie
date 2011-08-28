@@ -43,6 +43,7 @@ public class CalorieWidget extends AppWidgetProvider {
         
         Pref pref = Pref.getInstance(context);
         boolean background = pref.getBoolean(C.config.widget_background, C.config.widget_background_def_value);
+        boolean oneColor = pref.getBoolean(C.config.widget_one_color, C.config.widget_one_color_def_value);
         
         for (int appWidgetId : appWidgetIds) {
             AppWidgetProviderInfo info = appWidgetManager.getAppWidgetInfo(appWidgetId);
@@ -60,6 +61,9 @@ public class CalorieWidget extends AppWidgetProvider {
             bar.setSize(width, height);
             bar.layout(0, 0, width, height);
             bar.setDrawingCacheEnabled(true);
+            if(oneColor){
+                bar.setOneColor(Color.argb(0xff, 0xf0, 0x51, 0x51));
+            }
             MainActivity.loadConfig(bar);
             MainActivity.restoreCalorieInfoList(bar);
             Bitmap bitmap = bar.getDrawingCache();

@@ -41,6 +41,9 @@ public class ConfigActivity extends Activity {
 		
 		boolean widgetBG = mPref.getBoolean(C.config.widget_background, C.config.widget_background_def_value);
 		HCheckBox.set(this, R.id.widget_background, widgetBG);
+		
+		boolean widgetOneColor = mPref.getBoolean(C.config.widget_one_color, C.config.widget_one_color_def_value);
+		HCheckBox.set(this, R.id.widget_one_color, widgetOneColor);
 	}
 	
 	/**
@@ -55,5 +58,8 @@ public class ConfigActivity extends Activity {
 		
 		boolean widgetBG = HCheckBox.get(this, R.id.widget_background);
 		mPref.putBoolean(C.config.widget_background, widgetBG);
+	
+		boolean widgetOneColor = HCheckBox.get(this, R.id.widget_one_color);
+        mPref.putBoolean(C.config.widget_one_color, widgetOneColor);
 	}
 }
