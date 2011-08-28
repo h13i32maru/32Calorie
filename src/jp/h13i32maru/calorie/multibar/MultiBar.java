@@ -139,7 +139,7 @@ public class MultiBar extends View {
 						post(new Runnable(){
 							@Override
 							public void run() {
-								mOnProgress.progress(index, v, t);
+								mOnProgress.progress(index, v, delta, t);
 							}
 						});
 					}
@@ -358,6 +358,6 @@ public class MultiBar extends View {
 	}
 	
 	public static interface OnProgressListener{
-		void progress(int index, int value, int totalValue);
+		void progress(int index, int value, int delta, int totalValue);
 	}
 }

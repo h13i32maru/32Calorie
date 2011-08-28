@@ -5,6 +5,11 @@ import android.widget.TextView;
 
 public class HTextView {
 
+    public static void set(Activity activity, int id, String value){
+        TextView t = (TextView)activity.findViewById(id);
+        t.setText(value);
+    }
+    
 	public static void set(Activity activity, int id, int value){
 		TextView t = (TextView)activity.findViewById(id);
 		t.setText("" + value);

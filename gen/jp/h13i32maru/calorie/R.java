@@ -31,8 +31,9 @@ containing a value of this type.
         public static final int round_corner_widget=0x7f020007;
     }
     public static final class id {
-        public static final int bar_image=0x7f070010;
+        public static final int bar_image=0x7f070011;
         public static final int caloire_icon=0x7f07000c;
+        public static final int calorie_delta=0x7f07000f;
         public static final int calorie_name=0x7f07000d;
         public static final int calorie_value=0x7f07000e;
         public static final int dec_button=0x7f070005;
@@ -47,7 +48,7 @@ containing a value of this type.
         public static final int target=0x7f070000;
         public static final int total_text=0x7f07000a;
         public static final int widget_background=0x7f070002;
-        public static final int widget_root=0x7f07000f;
+        public static final int widget_root=0x7f070010;
     }
     public static final class layout {
         public static final int config=0x7f030000;

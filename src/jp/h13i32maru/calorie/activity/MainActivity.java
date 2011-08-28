@@ -9,6 +9,7 @@ import jp.h13i32maru.calorie.model.CalorieInfo;
 import jp.h13i32maru.calorie.model.CalorieInfoDAO;
 import jp.h13i32maru.calorie.model.Pref;
 import jp.h13i32maru.calorie.multibar.MultiBar;
+import jp.h13i32maru.calorie.util.widgethelper.HTextView;
 import jp.h13i32maru.calorie.widget.CalorieWidget;
 import android.app.Activity;
 import android.content.Intent;
@@ -33,6 +34,7 @@ public class MainActivity extends Activity {
     private int mSelectedCalorie = -1;
     private MultiBar mMultiBar;
     private CalorieInfoDAO mCalorieInfoDAO;
+    private int mDelta;
     
     public static int getRemainColor(int remain){
         if(remain >= 500){
@@ -84,12 +86,17 @@ public class MainActivity extends Activity {
         
         mMultiBar.setOnProgressListener(new MultiBar.OnProgressListener() {
     		@Override
-    		public void progress(int index, int value, int totalValue) {
+    		public void progress(int index, int value, int delta, int totalValue) {
     			CalorieInfo c = mCalorieInfoList.get(index);
     			c.setValue(value);
     			
     			TextView t = (TextView)mTableRowCalorieInfoList.get(index).findViewById(R.id.calorie_value);
     			t.setText("" + value);
+    			
+    			mDelta += delta;
+    			t = (TextView)mTableRowCalorieInfoList.get(index).findViewById(R.id.calorie_delta);
+                String sign = (mDelta > 0 ? "+" : "");
+    			t.setText("" + sign + mDelta);
     			
     			setSummary();
     		}
@@ -238,7 +245,13 @@ public class MainActivity extends Activity {
     }
     
     protected void selectCalorie(int index){
-    	if(index == -1){
+        mDelta = 0;
+        for(View v: mTableRowCalorieInfoList){
+            TextView t = (TextView)v.findViewById(R.id.calorie_delta);
+            t.setText("");
+        }
+        
+        if(index == -1){
     		for(TableRow t: mTableRowCalorieInfoList){
     			t.setBackgroundDrawable(null);
     		}
