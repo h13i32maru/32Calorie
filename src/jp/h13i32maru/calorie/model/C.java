@@ -6,6 +6,7 @@ public class C {
 		public static final int clear = 0;
 		public static final int settings = 1;
 		public static final int help = 2;
+		public static final int line_chart = 3;
 	}
 
 	public static class req{

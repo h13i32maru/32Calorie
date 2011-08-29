@@ -9,7 +9,6 @@ import jp.h13i32maru.calorie.model.CalorieInfo;
 import jp.h13i32maru.calorie.model.CalorieInfoDAO;
 import jp.h13i32maru.calorie.model.Pref;
 import jp.h13i32maru.calorie.multibar.MultiBar;
-import jp.h13i32maru.calorie.util.widgethelper.HTextView;
 import jp.h13i32maru.calorie.widget.CalorieWidget;
 import android.app.Activity;
 import android.content.Intent;
@@ -140,6 +139,9 @@ public class MainActivity extends Activity {
         item = menu.add(Menu.NONE, C.menu.settings, Menu.NONE, getString(R.string.menu_settings));
         item.setIcon(android.R.drawable.ic_menu_preferences);
         
+        item = menu.add(Menu.NONE, C.menu.line_chart, Menu.NONE, getString(R.string.menu_line_chart));
+        item.setIcon(android.R.drawable.ic_menu_more);
+        
         item = menu.add(Menu.NONE, C.menu.help, Menu.NONE, getString(R.string.menu_help));
         item.setIcon(android.R.drawable.ic_menu_help);
 
@@ -166,6 +168,11 @@ public class MainActivity extends Activity {
         case C.menu.help:
         {
             Intent intent = new Intent(this, HelpActivity.class);
+            startActivity(intent);
+        }
+            break;
+        case C.menu.line_chart:{
+            Intent intent = new Intent(this, LineChartActivity.class);
             startActivity(intent);
         }
             break;
