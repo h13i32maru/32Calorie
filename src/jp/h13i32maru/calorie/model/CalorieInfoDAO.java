@@ -24,8 +24,8 @@ public class CalorieInfoDAO {
 	
 	private Pref mPref;
 	
-	protected List<CalorieInfo> getInitialList(){
-		List<CalorieInfo> calorieInfoList = new ArrayList<CalorieInfo>();
+	protected CalorieInfoList getInitialList(){
+		CalorieInfoList calorieInfoList = new CalorieInfoList();
 		for(int i = 0; i < mNameArray.length; i++){
 			calorieInfoList.add(new CalorieInfo(mNameArray[i], 0, mColorArray[i]));
 		}
@@ -45,13 +45,13 @@ public class CalorieInfoDAO {
 		mPref.setVersionCode();
 	}
 	
-	public List<CalorieInfo> getList(){
+	public CalorieInfoList getList(){
 		JSONArray array = mPref.getJSONArray(PREF_KEY, null);
 		if(array == null || array.length() == 0){
 			return getInitialList();
 		}
 		
-		List<CalorieInfo> list = new ArrayList<CalorieInfo>();
+		CalorieInfoList list = new CalorieInfoList();
 		for(int i = 0; i < array.length(); i++){
 			try {
 				CalorieInfo c = CalorieInfo.decodeJSON(array.getString(i));

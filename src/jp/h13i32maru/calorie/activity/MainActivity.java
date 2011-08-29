@@ -7,6 +7,7 @@ import jp.h13i32maru.calorie.R;
 import jp.h13i32maru.calorie.model.C;
 import jp.h13i32maru.calorie.model.CalorieInfo;
 import jp.h13i32maru.calorie.model.CalorieInfoDAO;
+import jp.h13i32maru.calorie.model.CalorieInfoList;
 import jp.h13i32maru.calorie.model.Pref;
 import jp.h13i32maru.calorie.multibar.MultiBar;
 import jp.h13i32maru.calorie.widget.CalorieWidget;
@@ -28,7 +29,7 @@ import android.widget.TextView;
 public class MainActivity extends Activity {
     private static final String FIRST_LAUNDH = "first_launch";
     
-    private List<CalorieInfo> mCalorieInfoList;
+    private CalorieInfoList mCalorieInfoList;
     private List<TableRow> mTableRowCalorieInfoList = new ArrayList<TableRow>();
     private int mSelectedCalorie = -1;
     private MultiBar mMultiBar;
@@ -55,11 +56,11 @@ public class MainActivity extends Activity {
         multiBar.setMax(max);
     }
     
-   public static List<CalorieInfo> restoreCalorieInfoList(MultiBar multiBar){
+   public static CalorieInfoList restoreCalorieInfoList(MultiBar multiBar){
        CalorieInfoDAO dao = new CalorieInfoDAO(multiBar.getContext());
        
         multiBar.clearAllBar();
-        List<CalorieInfo> calorieInfoList = dao.getList();
+        CalorieInfoList calorieInfoList = dao.getList();
         for(CalorieInfo c: calorieInfoList){
             multiBar.addBar(c.getName(), c.getValue(), c.getColor());
         }
