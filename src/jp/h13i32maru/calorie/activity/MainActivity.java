@@ -220,6 +220,8 @@ public class MainActivity extends Activity {
     
     protected void selectCalorie(int index){
         mDelta = 0;
+        Drawable selectDrawable = getResources().getDrawable(R.drawable.round_corner_calorie_info);
+        Drawable unselectDrawable = getResources().getDrawable(R.drawable.round_corner_calorie_info_unselect);
         for(View v: mTableRowCalorieInfoList){
             TextView t = (TextView)v.findViewById(R.id.calorie_delta);
             t.setText("");
@@ -227,21 +229,21 @@ public class MainActivity extends Activity {
         
         if(index == -1){
     		for(TableRow t: mTableRowCalorieInfoList){
-    			t.setBackgroundDrawable(null);
+    			t.getChildAt(0).setBackgroundDrawable(unselectDrawable);
     		}
     		mSelectedCalorie = -1;
     	}
     	else if(mSelectedCalorie == index){
     		mMultiBar.clearBarSelected();
-    		mTableRowCalorieInfoList.get(index).setBackgroundDrawable(null);
+    		mTableRowCalorieInfoList.get(index).getChildAt(0).setBackgroundDrawable(unselectDrawable);
     		mSelectedCalorie = -1;
     	}
     	else{
     		if(mSelectedCalorie != -1){
-    			mTableRowCalorieInfoList.get(mSelectedCalorie).setBackgroundDrawable(null);
+    			mTableRowCalorieInfoList.get(mSelectedCalorie).getChildAt(0).setBackgroundDrawable(unselectDrawable);
     		}
     		mMultiBar.setBarSelected(index);
-    		mTableRowCalorieInfoList.get(index).setBackgroundDrawable(getResources().getDrawable(R.drawable.round_corner_calorie_info));
+    		mTableRowCalorieInfoList.get(index).getChildAt(0).setBackgroundDrawable(selectDrawable);
     		//mTableRowCalorieInfoList.get(index).setBackgroundColor(Color.rgb(0x44, 0x44, 0x44));
     		mSelectedCalorie = index;
     	}

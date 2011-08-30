@@ -16,7 +16,7 @@ public class Type {
     };
     
     private static final int[] mColorArray = {
-        Color.rgb(0x54, 0x41, 0x2f),
+        Color.rgb(0x73, 0x59, 0x41),
         Color.rgb(0xFC, 0xEB, 0xB6),
         Color.rgb(0xF0, 0x78, 0x18),
         Color.rgb(0xF0, 0xA8, 0x30),
@@ -41,6 +41,4 @@ public class Type {
         color = mColorArray[type];
         order = mOrderArray[type];
     }
-    
-    
 }

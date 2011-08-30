@@ -3,7 +3,6 @@ package jp.h13i32maru.calorie.chart;
 import java.util.ArrayList;
 import java.util.List;
 
-import jp.h13i32maru.calorie.util._Log;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;

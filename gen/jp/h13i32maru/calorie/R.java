@@ -31,8 +31,10 @@ containing a value of this type.
         public static final int round_corner=0x7f020007;
         public static final int round_corner_arrow=0x7f020008;
         public static final int round_corner_calorie_info=0x7f020009;
-        public static final int round_corner_icon=0x7f02000a;
-        public static final int round_corner_widget=0x7f02000b;
+        public static final int round_corner_calorie_info_unselect=0x7f02000a;
+        public static final int round_corner_icon=0x7f02000b;
+        public static final int round_corner_summary=0x7f02000c;
+        public static final int round_corner_widget=0x7f02000d;
     }
     public static final class id {
         public static final int bar_image=0x7f070013;
