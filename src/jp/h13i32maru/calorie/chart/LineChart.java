@@ -10,7 +10,9 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.WindowManager;
 
 public class LineChart extends View {
 
@@ -38,8 +40,14 @@ public class LineChart extends View {
     public LineChart(Context context, AttributeSet attrs) {
         super(context, attrs);
         
+        DisplayMetrics metrics = new DisplayMetrics();
+        WindowManager wm = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+        wm.getDefaultDisplay().getMetrics(metrics);
+        
+        float density = metrics.density;
+        
         mTextPaint = new Paint();
-        mTextPaint.setTextSize(16);
+        mTextPaint.setTextSize(11 * density);
         mTextPaint.setAntiAlias(true);
         mTextPaint.setColor(Color.rgb(0xaa, 0xaa, 0xaa));
     }
@@ -76,8 +84,6 @@ public class LineChart extends View {
         
         int right = getMeasuredWidth();
         int bottom = getMeasuredHeight();
-        int width = right;
-        int height = bottom;
         
         Rect rect;
         Paint paint;
@@ -112,26 +118,12 @@ public class LineChart extends View {
             canvas.drawText(label, tx, ty, mTextPaint);
         }
         
-        //各座標を描画
-        paint = new Paint();
-        paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.rgb(0xff, 0x44, 0x44));
-        Paint paint2 = new Paint();
-        paint2.setAntiAlias(true);
-        paint2.setTextSize(mTextPaint.getTextSize());
-        paint2.setColor(Color.rgb(0xff, 0x44, 0x44));
-        for(Point point : mPointList){
-            float x = x(point.x);
-            float y = y(point.y);
-            canvas.drawCircle(x, y, mPointRadius, paint);
-            canvas.drawText(point.label, x - paint2.measureText(point.label) / 2, y - mPointRadius - paint2.descent(), paint2);
-        }
-        
-        //描く座標を折れ線で接続
+        //座標を折れ線で接続
         paint = new Paint();
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.rgb(0xff, 0x44, 0x44));
         paint.setStrokeWidth(2);
+        paint.setAntiAlias(true);
         for(int i = 0; i < mPointList.size(); i++){
             if(i + 1 < mPointList.size()){
                 Point p1 = mPointList.get(i);
@@ -142,6 +134,22 @@ public class LineChart extends View {
                 float stopY = y(p2.y);
                 canvas.drawLine(startX, startY, stopX, stopY, paint);
             }
+        }
+        
+        //各座標を描画
+        paint = new Paint();
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(Color.rgb(0xff, 0x44, 0x44));
+        paint.setAntiAlias(true);
+        Paint paint2 = new Paint();
+        paint2.setAntiAlias(true);
+        paint2.setTextSize(mTextPaint.getTextSize());
+        paint2.setColor(Color.rgb(0x00, 0x00, 0x00));
+        for(Point point : mPointList){
+            float x = x(point.x);
+            float y = y(point.y);
+            canvas.drawCircle(x, y, mPointRadius, paint);
+            canvas.drawText(point.label, x - paint2.measureText(point.label) / 2, y - mPointRadius - paint2.descent(), paint2);
         }
         
         //外部から指定されて線を描画
@@ -161,7 +169,7 @@ public class LineChart extends View {
             canvas.drawLine(startX, startY, stopX, stopY, paint);
             
             paint2 = new Paint();
-            paint2.setColor(paint.getColor());
+            paint2.setColor(Color.rgb(0x00, 0x00, 0x00));
             paint2.setTextSize(mTextPaint.getTextSize());
             paint2.setAntiAlias(true);
             float tx = stopX - paint2.measureText(line.label);
@@ -206,7 +214,6 @@ public class LineChart extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
         int width = MeasureSpec.getSize(widthMeasureSpec);
         int height = MeasureSpec.getSize(heightMeasureSpec);
-        _Log.d("width = " + width + "height = " + height);
         setMeasuredDimension(width, height);
     }
     

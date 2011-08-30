@@ -4,16 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jp.h13i32maru.calorie.R;
+import jp.h13i32maru.calorie.common.CalorieBarBuilder;
+import jp.h13i32maru.calorie.db.CalorieDAO;
+import jp.h13i32maru.calorie.db.CalorieInfo;
 import jp.h13i32maru.calorie.model.C;
-import jp.h13i32maru.calorie.model.CalorieInfo;
-import jp.h13i32maru.calorie.model.CalorieInfoDAO;
-import jp.h13i32maru.calorie.model.CalorieInfoList;
 import jp.h13i32maru.calorie.model.Pref;
 import jp.h13i32maru.calorie.multibar.MultiBar;
 import jp.h13i32maru.calorie.widget.CalorieWidget;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -28,45 +27,13 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
     private static final String FIRST_LAUNDH = "first_launch";
-    
-    private CalorieInfoList mCalorieInfoList;
+
+    private MultiBar mMultiBar;
+    private CalorieDAO mCalorieDAO;
+    private List<CalorieInfo> mCalorieInfoList;
     private List<TableRow> mTableRowCalorieInfoList = new ArrayList<TableRow>();
     private int mSelectedCalorie = -1;
-    private MultiBar mMultiBar;
-    private CalorieInfoDAO mCalorieInfoDAO;
     private int mDelta;
-    
-    public static int getRemainColor(int remain){
-        if(remain >= 500){
-            return Color.WHITE;
-        }
-        else if(remain >= 1){
-            return Color.rgb(0xff, 0x88, 0x88);
-        }
-        else{
-            return Color.RED;
-        }
-    }
-    
-    public static void loadConfig(MultiBar multiBar){
-        Pref pref = Pref.getInstance(multiBar.getContext());
-        int target = pref.getInt(C.config.target, C.config.target_def_value);
-        int max = pref.getInt(C.config.max, C.config.max_def_value);
-        multiBar.setTarget(target);
-        multiBar.setMax(max);
-    }
-    
-   public static CalorieInfoList restoreCalorieInfoList(MultiBar multiBar){
-       CalorieInfoDAO dao = new CalorieInfoDAO(multiBar.getContext());
-       
-        multiBar.clearAllBar();
-        CalorieInfoList calorieInfoList = dao.getList();
-        for(CalorieInfo c: calorieInfoList){
-            multiBar.addBar(c.getName(), c.getValue(), c.getColor());
-        }
-        
-        return calorieInfoList;
-    }
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,14 +41,13 @@ public class MainActivity extends Activity {
         setContentView(R.layout.main);
         
         mMultiBar = (MultiBar)findViewById(R.id.multi_bar);
-        mCalorieInfoDAO = new CalorieInfoDAO(this);
+        mCalorieDAO = CalorieDAO.getInstance(this);
+        mCalorieInfoList = mCalorieDAO.getLastCalorieInfoList();
         
-        MainActivity.loadConfig(mMultiBar);
-        
-        mCalorieInfoList = MainActivity.restoreCalorieInfoList(mMultiBar);
-        
+        CalorieBarBuilder.loadConfig(mMultiBar);
+        CalorieBarBuilder.loadData(mMultiBar, mCalorieInfoList);
+
         initTableCalorieInfo();
-        
         initButton();
         
         mMultiBar.setOnProgressListener(new MultiBar.OnProgressListener() {
@@ -113,7 +79,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onPause(){
         super.onPause();
-        mCalorieInfoDAO.save(mCalorieInfoList);
+        mCalorieDAO.update(mCalorieInfoList);
         CalorieWidget.update(this);
     }
     
@@ -123,7 +89,7 @@ public class MainActivity extends Activity {
     	
     	switch(requestCode){
     	case C.req.config:
-    		MainActivity.loadConfig(mMultiBar);
+    		CalorieBarBuilder.loadConfig(mMultiBar);
     		initTableCalorieInfo();
     		break;
     	}
@@ -156,8 +122,8 @@ public class MainActivity extends Activity {
     	int id = item.getItemId();
         switch(id){
         case C.menu.clear:
-        	mCalorieInfoDAO.clear();
-        	mCalorieInfoList = MainActivity.restoreCalorieInfoList(mMultiBar);
+            mCalorieInfoList = mCalorieDAO.createNew();
+        	CalorieBarBuilder.loadData(mMultiBar, mCalorieInfoList);
         	initTableCalorieInfo();
             break;
         case C.menu.settings:
@@ -249,7 +215,7 @@ public class MainActivity extends Activity {
         t = (TextView)findViewById(R.id.remain_text);
         t.setText(getString(R.string.summary_remain) + " " + remain);
         
-        t.setTextColor(MainActivity.getRemainColor(remain));
+        t.setTextColor(CalorieBarBuilder.getRemainColor(remain));
     }
     
     protected void selectCalorie(int index){

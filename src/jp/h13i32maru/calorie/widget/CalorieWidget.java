@@ -1,7 +1,12 @@
 package jp.h13i32maru.calorie.widget;
 
+import java.util.List;
+
 import jp.h13i32maru.calorie.R;
 import jp.h13i32maru.calorie.activity.MainActivity;
+import jp.h13i32maru.calorie.common.CalorieBarBuilder;
+import jp.h13i32maru.calorie.db.CalorieDAO;
+import jp.h13i32maru.calorie.db.CalorieInfo;
 import jp.h13i32maru.calorie.model.C;
 import jp.h13i32maru.calorie.model.Pref;
 import jp.h13i32maru.calorie.multibar.MultiBar;
@@ -39,6 +44,9 @@ public class CalorieWidget extends AppWidgetProvider {
         WindowManager wm = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
         wm.getDefaultDisplay().getMetrics(metrics);
         
+        CalorieDAO dao = CalorieDAO.getInstance(context);
+        List<CalorieInfo> calorieInfoList = dao.getLastCalorieInfoList();
+        
         int padding = 4 * (int)metrics.density;
         
         Pref pref = Pref.getInstance(context);
@@ -64,8 +72,8 @@ public class CalorieWidget extends AppWidgetProvider {
             if(oneColor){
                 bar.setOneColor(Color.argb(0xff, 0xf0, 0x51, 0x51));
             }
-            MainActivity.loadConfig(bar);
-            MainActivity.restoreCalorieInfoList(bar);
+            CalorieBarBuilder.loadConfig(bar);
+            CalorieBarBuilder.loadData(bar, calorieInfoList);
             Bitmap bitmap = bar.getDrawingCache();
 
             int total = bar.getTotalBarValue();
@@ -79,7 +87,7 @@ public class CalorieWidget extends AppWidgetProvider {
             
             remoteViews.setCharSequence(R.id.remain_text, "setText", context.getString(R.string.summary_remain) + " " + remain);
             remoteViews.setFloat(R.id.remain_text, "setTextSize", 12);
-            remoteViews.setInt(R.id.remain_text, "setTextColor", MainActivity.getRemainColor(remain));
+            remoteViews.setInt(R.id.remain_text, "setTextColor", CalorieBarBuilder.getRemainColor(remain));
             
             Intent intent = new Intent(context, MainActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent, 0);
