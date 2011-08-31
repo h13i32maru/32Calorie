@@ -8,7 +8,6 @@ import jp.h13i32maru.calorie.db.CalorieDAO;
 import jp.h13i32maru.calorie.db.CalorieInfo;
 import jp.h13i32maru.calorie.model.C;
 import jp.h13i32maru.calorie.model.Pref;
-import jp.h13i32maru.calorie.util._Log;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.SeekBar;
@@ -16,7 +15,8 @@ import android.widget.Toast;
 
 public class LineChartActivity extends Activity {
 
-    public static int COUNT = 7;
+    public static int MIN_COUNT = 7;
+    public static int MAX_COUNT = 30;
     
     private Pref mPref;
     private LineChart mLineChart;
@@ -34,26 +34,24 @@ public class LineChartActivity extends Activity {
 
         mDAO = CalorieDAO.getInstance(this);
 
-        setChart(COUNT);
+        setChart(MIN_COUNT);
         
         SeekBar seekBar = (SeekBar)findViewById(R.id.seek_bar);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                _Log.d("start = " + seekBar.getProgress());
             }
+
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromTouch) {
-                _Log.d("progress = " + progress);
-                if(progress < COUNT){
-                    seekBar.setProgress(COUNT);
-                }
-                
-                setChart(seekBar.getProgress());
+                int count = progress + MIN_COUNT;
+                setChart(count);
             }
+            
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                _Log.d("stop = " + seekBar.getProgress());
+                //int count = seekBar.getProgress() + MIN_COUNT;
+                //Toast.makeText(LineChartActivity.this, "" + count, Toast.LENGTH_SHORT).show();
             }
         });
 

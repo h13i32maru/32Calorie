@@ -17,8 +17,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginBottom="4dp"
-        android:progress="7"
-        android:max="31"
+        android:progress="0"
+        android:max="24"
         android:id="@+id/seek_bar"/>  
     
 </LinearLayout>
