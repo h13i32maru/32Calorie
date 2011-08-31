@@ -20,6 +20,7 @@
     <string name="menu_help">ヘルプ</string>
     <string name="menu_line_chart">グラフ</string>
     <string name="chart_no_data">カロリーのデータがありません</string>
+    <string name="unselected_calorie">カロリーを選択してください</string>
     <string name="help">
 32Calorieは一日の摂取カロリーを記録していくアプリです。\n\n
 

@@ -5,10 +5,20 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
   
-  <jp.h13i32maru.calorie.chart.LineChart
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="8dp"
-    android:id="@+id/line_chart"/>
+	<jp.h13i32maru.calorie.chart.LineChart
+	  android:layout_width="match_parent"
+	  android:layout_height="match_parent"
+	  android:layout_margin="8dp"
+      android:id="@+id/line_chart"
+      android:layout_weight="100"/>
+    
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginBottom="4dp"
+        android:progress="7"
+        android:max="31"
+        android:id="@+id/seek_bar"/>  
     
 </LinearLayout>

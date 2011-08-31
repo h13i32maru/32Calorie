@@ -24,6 +24,7 @@ import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
     private static final String FIRST_LAUNDH = "first_launch";
@@ -67,6 +68,22 @@ public class MainActivity extends Activity {
     			setSummary();
     		}
     	});
+        
+        findViewById(R.id.summary).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(final View v) {
+                v.setBackgroundResource(R.drawable.round_corner_summary_selected);
+                v.postDelayed(new Runnable(){
+                    @Override
+                    public void run() {
+                        v.setBackgroundResource(R.drawable.round_corner_summary);
+                    }
+                }, 100);
+                
+                Intent intent = new Intent(MainActivity.this, LineChartActivity.class);
+                startActivity(intent);
+            }
+        });
         
         Pref pref = Pref.getInstance(this);
         if(pref.getBoolean(FIRST_LAUNDH, true)){
@@ -122,6 +139,7 @@ public class MainActivity extends Activity {
     	int id = item.getItemId();
         switch(id){
         case C.menu.clear:
+            mCalorieDAO.update(mCalorieInfoList);
             mCalorieInfoList = mCalorieDAO.createNew();
         	CalorieBarBuilder.loadData(mMultiBar, mCalorieInfoList);
         	initTableCalorieInfo();
@@ -256,15 +274,22 @@ public class MainActivity extends Activity {
     private class OnTouchListener implements View.OnTouchListener{
     	int mDelta;
     	int mInterval;
+    	Toast mToast;
     	public OnTouchListener(int delta, int interval){
     		mDelta = delta;
     		mInterval = interval;
+    		mToast = Toast.makeText(MainActivity.this, MainActivity.this.getString(R.string.unselected_calorie), Toast.LENGTH_SHORT);
     	}
     	
     	@Override
     	public boolean onTouch(View v, MotionEvent event) {
+
     		switch(event.getAction()){
     		case MotionEvent.ACTION_DOWN:
+	          if(mSelectedCalorie == -1){
+	                mToast.show();
+	                return true;
+	            }
     		    v.setBackgroundDrawable(getResources().getDrawable(R.drawable.round_corner_arrow));
     			mMultiBar.start(mSelectedCalorie, mDelta, mInterval);
     			return true;

@@ -3,4 +3,11 @@
 	<style name="Theme.Help" parent="@android:style/Theme.Dialog">
 		<item name="android:windowNoTitle">true</item>
 	</style>
+	
+	   <style name="MyTheme" parent="android:Theme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@drawable/transparent_background</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:colorForeground">#fff</item>
+    </style>
 </resources>

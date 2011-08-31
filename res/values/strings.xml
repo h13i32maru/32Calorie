@@ -20,6 +20,7 @@
     <string name="menu_help">Help</string>
     <string name="menu_line_chart">Chart</string>
     <string name="chart_no_data">Calorie data is nothing</string>
+    <string name="unselected_calorie">Please select calorie</string>
     <string name="help">
 32Calorie is an app will record the calories of the day.\n\n
 

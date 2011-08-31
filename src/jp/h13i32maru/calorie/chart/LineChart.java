@@ -51,6 +51,11 @@ public class LineChart extends View {
         mTextPaint.setColor(Color.rgb(0xaa, 0xaa, 0xaa));
     }
     
+    public void clear(){
+        mLineList.clear();
+        mPointList.clear();
+    }
+    
     public void addPoint(String label, float x, float y){
         Point point = new Point(label, x, y);
         mPointList.add(point);
@@ -117,6 +122,32 @@ public class LineChart extends View {
             canvas.drawText(label, tx, ty, mTextPaint);
         }
         
+        //外部から指定されて線を描画
+        Paint paint2;
+        for(Line line: mLineList){
+            paint = line.getPaint();
+            if(paint == null){
+                paint = new Paint();
+                paint.setColor(Color.rgb(0xff, 0x44, 0x44));
+                paint.setStyle(Paint.Style.STROKE);
+                paint.setStrokeWidth(2);
+            }
+            
+            float startX = x(line.startX);
+            float startY = y(line.startY);
+            float stopX = x(line.stopX);
+            float stopY = y(line.stopY);
+            canvas.drawLine(startX, startY, stopX, stopY, paint);
+            
+            paint2 = new Paint();
+            paint2.setColor(Color.rgb(0x00, 0x00, 0x00));
+            paint2.setTextSize(mTextPaint.getTextSize());
+            paint2.setAntiAlias(true);
+            float tx = stopX - paint2.measureText(line.label);
+            float ty = stopY + paint2.ascent() / 2;
+            canvas.drawText(line.label, tx, ty, paint2);
+        }
+        
         //座標を折れ線で接続
         paint = new Paint();
         paint.setStyle(Paint.Style.STROKE);
@@ -140,7 +171,7 @@ public class LineChart extends View {
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.rgb(0xff, 0x44, 0x44));
         paint.setAntiAlias(true);
-        Paint paint2 = new Paint();
+        paint2 = new Paint();
         paint2.setAntiAlias(true);
         paint2.setTextSize(mTextPaint.getTextSize());
         paint2.setColor(Color.rgb(0x00, 0x00, 0x00));
@@ -149,31 +180,6 @@ public class LineChart extends View {
             float y = y(point.y);
             canvas.drawCircle(x, y, mPointRadius, paint);
             canvas.drawText(point.label, x - paint2.measureText(point.label) / 2, y - mPointRadius - paint2.descent(), paint2);
-        }
-        
-        //外部から指定されて線を描画
-        for(Line line: mLineList){
-            paint = line.getPaint();
-            if(paint == null){
-                paint = new Paint();
-                paint.setColor(Color.rgb(0xff, 0x44, 0x44));
-                paint.setStyle(Paint.Style.STROKE);
-                paint.setStrokeWidth(2);
-            }
-            
-            float startX = x(line.startX);
-            float startY = y(line.startY);
-            float stopX = x(line.stopX);
-            float stopY = y(line.stopY);
-            canvas.drawLine(startX, startY, stopX, stopY, paint);
-            
-            paint2 = new Paint();
-            paint2.setColor(Color.rgb(0x00, 0x00, 0x00));
-            paint2.setTextSize(mTextPaint.getTextSize());
-            paint2.setAntiAlias(true);
-            float tx = stopX - paint2.measureText(line.label);
-            float ty = stopY + paint2.ascent() / 2;
-            canvas.drawText(line.label, tx, ty, paint2);
         }
     }
     

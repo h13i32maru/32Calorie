@@ -34,14 +34,17 @@ containing a value of this type.
         public static final int round_corner_calorie_info_unselect=0x7f02000a;
         public static final int round_corner_icon=0x7f02000b;
         public static final int round_corner_summary=0x7f02000c;
-        public static final int round_corner_widget=0x7f02000d;
+        public static final int round_corner_summary_selected=0x7f02000d;
+        public static final int round_corner_widget=0x7f02000e;
+        public static final int transparent_background=0x7f020010;
+        public static final int transparent_background2=0x7f02000f;
     }
     public static final class id {
-        public static final int bar_image=0x7f070013;
-        public static final int caloire_icon=0x7f07000e;
-        public static final int calorie_delta=0x7f070011;
-        public static final int calorie_name=0x7f07000f;
-        public static final int calorie_value=0x7f070010;
+        public static final int bar_image=0x7f070015;
+        public static final int caloire_icon=0x7f070010;
+        public static final int calorie_delta=0x7f070013;
+        public static final int calorie_name=0x7f070011;
+        public static final int calorie_value=0x7f070012;
         public static final int dec_button=0x7f070001;
         public static final int dec_slow_button=0x7f070002;
         public static final int help_version=0x7f07000c;
@@ -51,12 +54,14 @@ containing a value of this type.
         public static final int max=0x7f070009;
         public static final int multi_bar=0x7f070000;
         public static final int remain_text=0x7f070007;
+        public static final int seek_bar=0x7f07000e;
+        public static final int summary=0x7f07000f;
         public static final int table_calorie_info=0x7f070005;
         public static final int target=0x7f070008;
         public static final int total_text=0x7f070006;
         public static final int widget_background=0x7f07000a;
         public static final int widget_one_color=0x7f07000b;
-        public static final int widget_root=0x7f070012;
+        public static final int widget_root=0x7f070014;
     }
     public static final class layout {
         public static final int backup_main=0x7f030000;
@@ -81,7 +86,7 @@ containing a value of this type.
         public static final int config_general_target=0x7f05000b;
         public static final int config_widget_background=0x7f05000d;
         public static final int config_widget_one_color=0x7f05000e;
-        public static final int help=0x7f050014;
+        public static final int help=0x7f050015;
         public static final int menu_clear=0x7f05000f;
         public static final int menu_help=0x7f050011;
         public static final int menu_line_chart=0x7f050012;
@@ -89,10 +94,12 @@ containing a value of this type.
         public static final int summary_average=0x7f050008;
         public static final int summary_remain=0x7f050007;
         public static final int summary_total=0x7f050006;
+        public static final int unselected_calorie=0x7f050014;
     }
     public static final class style {
         public static final int BarButton=0x7f060000;
         public static final int ConfigCategoryTitle=0x7f060001;
+        public static final int MyTheme=0x7f060003;
         public static final int Theme_Help=0x7f060002;
     }
     public static final class xml {

@@ -197,6 +197,7 @@ public class MultiBar extends View {
 		Paint paint = new Paint();
 		paint.setStyle(Paint.Style.FILL);
 		paint.setShader(shader);
+		paint.setAntiAlias(true);
 		canvas.drawRoundRect(rectF, BAR_RADIUS_X, BAR_RADIUS_Y, paint);
 	
 		//各バーの描画
@@ -208,6 +209,7 @@ public class MultiBar extends View {
 		paint = new Paint();
 		paint.setStyle(Paint.Style.FILL);
 		paint.setColor(Color.RED);
+		paint.setAntiAlias(true);
 		canvas.drawRect(rect, paint);
 				
 		//テキストの描画
@@ -289,6 +291,7 @@ public class MultiBar extends View {
 			Paint paint = shape.getPaint();
 			paint.setStyle(Paint.Style.FILL);
 			paint.setShader(shader);
+			paint.setAntiAlias(true);
 
 			shape.draw(canvas);
 			
@@ -298,6 +301,7 @@ public class MultiBar extends View {
 				paint.setStyle(Paint.Style.STROKE);
 				paint.setStrokeWidth(halfWidth * 2);
 				paint.setColor(Color.rgb(0xff, 0x88, 0x44));
+				paint.setAntiAlias(true);
 				canvas.drawRect(left + halfWidth, top + halfWidth, right - halfWidth, bottom - halfWidth, paint);
 			}
 		}
