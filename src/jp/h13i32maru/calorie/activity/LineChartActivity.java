@@ -18,6 +18,7 @@ public class LineChartActivity extends Activity {
 
     public static int COUNT = 7;
     
+    private Pref mPref;
     private LineChart mLineChart;
     private CalorieDAO mDAO;
     
@@ -26,6 +27,8 @@ public class LineChartActivity extends Activity {
         super.onCreate(savedInstanceState);
         
         setContentView(R.layout.line_chart);
+        
+        mPref = Pref.getInstance(this);
         
         mLineChart = (LineChart)findViewById(R.id.line_chart);
 
@@ -59,16 +62,17 @@ public class LineChartActivity extends Activity {
     protected void setChart(int count){
         mLineChart.clear();
         
+        //最近のデータがindex = 0に入っている
         List<List<CalorieInfo>> history = mDAO.getHistory(count);
         
-        Pref pref = Pref.getInstance(this);
+        mPref = Pref.getInstance(this);
         
         int num = Math.min(count, history.size());
         if(num <= 0){
             Toast.makeText(this, getString(R.string.chart_no_data), Toast.LENGTH_SHORT).show();
             finish();
         }
-        int target = pref.getInt(C.config.target, C.config.target_def_value);
+        int target = mPref.getInt(C.config.target, C.config.target_def_value);
         int min = Integer.MAX_VALUE;
         int max = target;
         float sum = 0;
@@ -81,14 +85,16 @@ public class LineChartActivity extends Activity {
             max = Math.max(max, total);
             sum += total;
             
-            mLineChart.addPoint("" + total, num - i - 1, total);
+            mLineChart.addPoint("" + total, count - i - 1, total);
         }
+        //余白を持たせるために-100 & 10の桁未満は切り捨てる
         min -= 100;
         min = (min / 100) * 100;
         if(min < 0){
             min = 0;
         }
         
+        //余白を持たせるために+100 & 10の桁未満は切り捨てる
         max += 100;
         max = (max / 100) * 100;
         
