@@ -33,8 +33,9 @@ public class LineChart extends View {
     private float mPointRadius = 6;
 
     private List<Line> mLineList = new ArrayList<Line>();
-    
     private List<Point> mPointList = new ArrayList<Point>();
+    
+    private AxisLabeler mXAxisLabeler;
     
     public LineChart(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -51,9 +52,14 @@ public class LineChart extends View {
         mTextPaint.setColor(Color.rgb(0xaa, 0xaa, 0xaa));
     }
     
+    public void setXAixsLabeler(AxisLabeler labeler){
+        mXAxisLabeler = labeler;
+    }
+    
     public void clear(){
         mLineList.clear();
         mPointList.clear();
+        setXAixsLabeler(null);
     }
     
     public void addPoint(String label, float x, float y){
@@ -106,7 +112,13 @@ public class LineChart extends View {
         for(float x = mXMin; x <= mXMax; x += mXDistance){
             canvas.drawLine(x(x), y(mYMin), x(x), y(mYMax), paint);
             
-            String label = formatNum(x);
+            String label;
+            if(mXAxisLabeler != null){
+                label = mXAxisLabeler.getLabel(x);
+            }
+            else{
+                label = formatNum(x);
+            }
             float tx = x(x) - mTextPaint.measureText(label) / 2;
             float ty = y(mYMin) - mTextPaint.ascent();
             canvas.drawText(label, tx, ty, mTextPaint);
@@ -255,5 +267,9 @@ public class LineChart extends View {
         public Paint getPaint(){
             return mPaint;
         }
+    }
+    
+    public static interface AxisLabeler{
+        public String getLabel(float axisNum);
     }
 }
