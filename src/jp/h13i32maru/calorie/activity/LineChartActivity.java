@@ -15,8 +15,11 @@ import android.widget.Toast;
 
 public class LineChartActivity extends Activity {
 
-    public static int MIN_COUNT = 7;
-    public static int MAX_COUNT = 30;
+    public static final int MIN_COUNT = 7;
+    public static final int MAX_COUNT = 30;
+    //グラフのX軸を増やしすぎると文字が重なって見えにくくなるので、
+    //文字表示を切り替えるX軸の数の敷地
+    public static final int CRUSH_LABEL = 20;
     
     private Pref mPref;
     private LineChart mLineChart;
@@ -59,6 +62,18 @@ public class LineChartActivity extends Activity {
     
     protected void setChart(int count){
         mLineChart.clear();
+
+        if(count >= CRUSH_LABEL){
+            mLineChart.setXAixsLabeler(new LineChart.AxisLabeler() {
+                @Override
+                public String getLabel(float axisNum) {
+                    if(axisNum % 2 == 0){
+                        return "" + (int)axisNum;
+                    }
+                    return "";
+                }
+            });
+        }
         
         //最近のデータがindex = 0に入っている
         List<List<CalorieInfo>> history = mDAO.getHistory(count);
@@ -83,7 +98,12 @@ public class LineChartActivity extends Activity {
             max = Math.max(max, total);
             sum += total;
             
-            mLineChart.addPoint("" + total, count - i - 1, total);
+            if(count < CRUSH_LABEL){
+                mLineChart.addPoint("" + total, count - i - 1, total);
+            }
+            else{
+                mLineChart.addPoint("", count - i - 1, total);
+            }
         }
         //余白を持たせるために-100 & 10の桁未満は切り捨てる
         min -= 100;
