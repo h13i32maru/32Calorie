@@ -90,6 +90,8 @@ public class CalorieWidget extends AppWidgetProvider {
             remoteViews.setInt(R.id.remain_text, "setTextColor", CalorieBarBuilder.getRemainColor(remain));
             
             Intent intent = new Intent(context, MainActivity.class);
+            intent.setAction(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_LAUNCHER);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent, 0);
             remoteViews.setOnClickPendingIntent(R.id.widget_root, pendingIntent);
             if(background){
