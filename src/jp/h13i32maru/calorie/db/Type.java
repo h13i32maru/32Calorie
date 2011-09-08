@@ -15,12 +15,12 @@ public class Type {
         R.string.calorie_name_other,
     };
     
-    private static final int[] mColorArray = {
-        Color.rgb(0x73, 0x59, 0x41),
-        Color.rgb(0xFC, 0xEB, 0xB6),
-        Color.rgb(0xF0, 0x78, 0x18),
-        Color.rgb(0xF0, 0xA8, 0x30),
-        Color.rgb(0x78, 0xC0, 0xA8),
+    public static final int[] mColorArray = {
+        Color.parseColor("#c87a4b"),
+        Color.parseColor("#d1a058"),
+        Color.parseColor("#669b6a"),
+        Color.parseColor("#bcb037"),
+        Color.parseColor("#829246"),
     };
     
     private static final int[] mOrderArray = {

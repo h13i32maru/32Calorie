@@ -8,8 +8,11 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ComposeShader;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.Xfermode;
 import android.graphics.Paint.FontMetrics;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -34,6 +37,7 @@ public class MultiBar extends View {
 	private int mBarWidth;
 	private int mBarHeight;
 	private int mOneColor = -1;
+	private int mBorderWidth = 4;
 	
 	public MultiBar(Context context){
 	    super(context);
@@ -176,7 +180,8 @@ public class MultiBar extends View {
 	    mPaintText = new Paint();
         mPaintText.setTextSize(textSize);
         mPaintText.setAntiAlias(true);
-        mPaintText.setColor(Color.WHITE);
+        mPaintText.setColor(Color.parseColor("#fff3b1"));
+        mPaintText.setFakeBoldText(true);
 	}
 	
 	protected void initAttribute(Context context, AttributeSet attrs){
@@ -189,26 +194,47 @@ public class MultiBar extends View {
 	@Override
 	protected void onDraw(Canvas canvas){
 		super.onDraw(canvas);
-
-		//背景バーの描画
-		Rect rect = new Rect(0, getBarTop(), mBarWidth, getBarTop() + mBarHeight);
-		RectF rectF = new RectF(rect);
-		Shader shader = new LinearGradient(0, 0, 0, rect.bottom, Color.rgb(0xff, 0xff, 0xff), Color.rgb(0x88, 0x88, 0x88), Shader.TileMode.CLAMP);
+		
+		//ボーダーの描画
+		RectF rectF = new RectF(0, getBarTop() - mBorderWidth, getWidth(), getHeight());
 		Paint paint = new Paint();
 		paint.setStyle(Paint.Style.FILL);
-		paint.setShader(shader);
 		paint.setAntiAlias(true);
+		paint.setColor(Color.parseColor("#f6edb6"));
+		paint.setStrokeWidth(mBorderWidth);
+	    canvas.drawRoundRect(rectF, BAR_RADIUS_X, BAR_RADIUS_Y, paint);
+		
+		//背景バーの描画
+		Rect rect = new Rect(getBarLeft(), getBarTop(), getBarLeft() + mBarWidth, getBarTop() + mBarHeight);
+		rectF = new RectF(rect);
+		/*影をつける実装をしたけど、あとから各バーを描くと影が消えています。何か方法はないか？
+		int[] colors = new int[2];
+		colors[0] = Color.parseColor("#b3ab73");
+		colors[1] = Color.parseColor("#00000000");
+		Shader shaderA = new LinearGradient(0, rect.top, 0, rect.top + 20, colors, null, Shader.TileMode.CLAMP);
+		Shader shaderB = new LinearGradient(0, rect.bottom, 0, rect.bottom - 20, colors, null, Shader.TileMode.CLAMP);
+	    Shader shaderC = new LinearGradient(rect.left, 0, rect.left + 20, 0, colors, null, Shader.TileMode.CLAMP);
+        Shader shaderD = new LinearGradient(rect.right, rect.bottom - 20, rect.right - 20, rect.bottom - 20, colors, null, Shader.TileMode.CLAMP);
+	    Shader shaderAB = new ComposeShader(shaderA, shaderB, PorterDuff.Mode.DARKEN);
+	    Shader shaderCD = new ComposeShader(shaderC, shaderD, PorterDuff.Mode.DARKEN);
+	    Shader shader = new ComposeShader(shaderAB, shaderCD, PorterDuff.Mode.DARKEN);
+        */
+        paint = new Paint();
+		paint.setStyle(Paint.Style.FILL);
+		paint.setAntiAlias(true);
+		//paint.setShader(shader);
+		paint.setColor(Color.parseColor("#ddd6ae"));
 		canvas.drawRoundRect(rectF, BAR_RADIUS_X, BAR_RADIUS_Y, paint);
 	
 		//各バーの描画
 		drawAllBar(canvas);
-		
+	        
 		//目標ラインの描画
 		int targetLeft = mBarWidth * mTargetValue / mMaxValue; 
-		rect = new Rect(targetLeft, getBarTop(), targetLeft + 1, getBarTop() + mBarHeight);
+		rect = new Rect(targetLeft - 2, getBarTop(), targetLeft + 2, getBarTop() + mBarHeight);
 		paint = new Paint();
 		paint.setStyle(Paint.Style.FILL);
-		paint.setColor(Color.RED);
+		paint.setColor(Color.parseColor("#503e34"));
 		paint.setAntiAlias(true);
 		canvas.drawRect(rect, paint);
 				
@@ -220,6 +246,10 @@ public class MultiBar extends View {
 		    canvas.drawText("" + mTargetValue, targetLeft - mPaintText.measureText("" + mTargetValue) / 2, textTop, mPaintText);
 		}
 	}
+	
+	protected int getBarLeft(){
+	    return mBorderWidth;
+	}
 
 	protected int getBarTop(){
 	    if(mPaintText == null){
@@ -227,13 +257,13 @@ public class MultiBar extends View {
 	    }
 	    
 		FontMetrics fontMetrics = mPaintText.getFontMetrics();
-		return (int)(-fontMetrics.top + fontMetrics.bottom + mTextBarSpace);
+		return (int)(-fontMetrics.top + fontMetrics.bottom + mTextBarSpace + mBorderWidth);
 	}
 	
 	protected void drawAllBar(Canvas canvas){
-		int left = 0;
+		int left = getBarLeft();
 		int top = getBarTop();
-		int right = 0;
+		int right = getBarLeft();
 		int bottom = top + mBarHeight;
 		
 		//最初と最後のバーを探して保存しておく
@@ -280,12 +310,23 @@ public class MultiBar extends View {
 			if(mOneColor != -1){
 			    color = mOneColor;
 			}
+			/*
 			int[] colors = new int[2];
 			colors[0] = color;
 			colors[1] = Color.argb(0xff, (int)(Color.red(color) / 1.2), (int)(Color.green(color) / 1.2), (int)(Color.blue(color) / 1.2));
 			float[] positions = new float[2];
 			positions[0] = 0;
 			positions[1] = 1F;
+            */
+			int[] colors = new int[3];
+            colors[0] = color;
+            colors[1] = Color.argb(0xff, Math.min(255, (int)(Color.red(color) * 1.2)), Math.min(255, (int)(Color.green(color) * 1.2)), Math.min(255, (int)(Color.blue(color) * 1.2)));
+            colors[2] = colors[0];
+            float[] positions = new float[3];
+            positions[0] = 0;
+            positions[1] = 0.5F;
+            positions[2] = 1F;
+            
 			LinearGradient shader = new LinearGradient(0, 0, 0, bottom - top, colors, positions, Shader.TileMode.CLAMP);
 			
 			Paint paint = shape.getPaint();
@@ -317,10 +358,10 @@ public class MultiBar extends View {
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
 		mBarWidth = MeasureSpec.getSize(widthMeasureSpec) - 1;
-		mBarHeight = MeasureSpec.getSize(heightMeasureSpec) * 2 / 32;
+		mBarHeight = MeasureSpec.getSize(heightMeasureSpec) * 4 / 32;
 		
-		int width = MeasureSpec.getSize(widthMeasureSpec);
-		int height = getBarTop() + mBarHeight;
+		int width = MeasureSpec.getSize(widthMeasureSpec) + 2 * mBorderWidth;
+		int height = getBarTop() + mBarHeight + mBorderWidth;
 		setMeasuredDimension(width, height);
 	}
 	

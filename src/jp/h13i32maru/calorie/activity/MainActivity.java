@@ -7,9 +7,11 @@ import jp.h13i32maru.calorie.R;
 import jp.h13i32maru.calorie.common.CalorieBarBuilder;
 import jp.h13i32maru.calorie.db.CalorieDAO;
 import jp.h13i32maru.calorie.db.CalorieInfo;
+import jp.h13i32maru.calorie.db.Type;
 import jp.h13i32maru.calorie.model.C;
 import jp.h13i32maru.calorie.model.Pref;
 import jp.h13i32maru.calorie.multibar.MultiBar;
+import jp.h13i32maru.calorie.util._Log;
 import jp.h13i32maru.calorie.widget.CalorieWidget;
 import android.app.Activity;
 import android.content.Intent;
@@ -21,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -39,6 +42,19 @@ public class MainActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.new_main);
+        MultiBar multibar = (MultiBar)findViewById(R.id.multi_bar);
+        multibar.setMax(2500);
+        multibar.setTarget(1800);
+        multibar.addBar("0", 250, Type.mColorArray[0]);
+        multibar.addBar("1", 400, Type.mColorArray[1]);
+        multibar.addBar("2", 330, Type.mColorArray[2]);
+        multibar.addBar("3", 130, Type.mColorArray[3]);
+        multibar.addBar("4", 100, Type.mColorArray[4]);
+
+        return;
+        /*
+        
         setContentView(R.layout.main);
         
         mMultiBar = (MultiBar)findViewById(R.id.multi_bar);
@@ -91,13 +107,17 @@ public class MainActivity extends Activity {
             Intent intent = new Intent(this, HelpActivity.class);
             startActivity(intent);
         }
+        */
     }
     
     @Override
     protected void onPause(){
         super.onPause();
+        
+        /*
         mCalorieDAO.update(mCalorieInfoList);
         CalorieWidget.update(this);
+        */
     }
     
     @Override
@@ -171,6 +191,13 @@ public class MainActivity extends Activity {
     protected void initButton(){
     	View incButton = findViewById(R.id.inc_button);
     	incButton.setOnTouchListener(new OnTouchListener(10, 30));
+
+    	incButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                _Log.d("*****************click");
+            }
+        });
     	
         View incSlowButton = findViewById(R.id.inc_slow_button);
         incSlowButton.setOnTouchListener(new OnTouchListener(10, 100));
@@ -291,6 +318,7 @@ public class MainActivity extends Activity {
 	                return true;
 	            }
     		    v.setBackgroundDrawable(getResources().getDrawable(R.drawable.round_corner_arrow));
+    			
     			mMultiBar.start(mSelectedCalorie, mDelta, mInterval);
     			return true;
     		case MotionEvent.ACTION_UP:

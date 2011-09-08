@@ -17,4 +17,9 @@
 <resources>
     <drawable name="transparent_background2">#cc000000</drawable>
     <drawable name="transparent_background">#dd000000</drawable>
+    <drawable name="type0_color">#c87a4b</drawable>
+    <drawable name="type1_color">#d1a058</drawable>
+    <drawable name="type2_color">#669b6a</drawable>
+    <drawable name="type3_color">#bcb037</drawable>
+    <drawable name="type4_color">#829246</drawable>
 </resources>
