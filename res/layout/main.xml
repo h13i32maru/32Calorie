@@ -1,72 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:multibar="http://schemas.android.com/apk/res/jp.h13i32maru.calorie"
-	android:orientation="vertical" android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:padding="8dp">
-
-	<jp.h13i32maru.calorie.multibar.MultiBar
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		multibar:textSize="12sp"
-		android:id="@+id/multi_bar"/>
-
-	<LinearLayout
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:orientation="horizontal"
-		android:gravity="right"
-		android:layout_marginTop="4dp"
-		android:layout_marginBottom="12dp">
-        <ImageView
-            style="@style/BarButton"
-            android:id="@+id/dec_button"
-            android:src="@drawable/arrow_left2"/>
-        <ImageView
-            style="@style/BarButton"
-            android:id="@+id/dec_slow_button"
-            android:src="@drawable/arrow_left1"/>
-        <ImageView
-            style="@style/BarButton"
-            android:id="@+id/inc_slow_button"
-            android:src="@drawable/arrow_right1"/>
-        <ImageView
-            style="@style/BarButton"
-            android:id="@+id/inc_button"
-            android:src="@drawable/arrow_right2"/>
-	</LinearLayout>
-	
-    <TableLayout
-        android:shrinkColumns="0"
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:multibar="http://schemas.android.com/apk/res/jp.h13i32maru.calorie"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@drawable/background">
+  
+  <include layout="@layout/title"/>
+  
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginLeft="14dp"
+    android:layout_marginRight="14dp">
+    
+        <jp.h13i32maru.calorie.multibar.MultiBar
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/table_calorie_info"/>
+        multibar:textSize="12sp"
+        android:id="@+id/multi_bar"/>
+  
+	  <LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:background="@drawable/summary_bg"
+	    android:orientation="horizontal"
+	    android:paddingTop="2dp"
+	    android:paddingBottom="2dp"
+	    android:layout_marginTop="12dp"
+	    android:id="@+id/summary">
+	        <TextView
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:textColor="#4d3d32"
+	            android:textStyle="bold"
+	            android:layout_weight="1"
+	            android:gravity="center"
+	            android:paddingTop="8dp"
+	            android:paddingBottom="8dp"
+	            android:id="@+id/total_text"/>
+	        <LinearLayout
+	            android:layout_width="1dp"
+	            android:layout_height="match_parent"
+	            android:background="#4d3d32">
+	        </LinearLayout>
+	        <TextView
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:textColor="#4d3d32"
+	            android:textStyle="bold"
+	            android:layout_weight="1"
+	            android:gravity="center"
+	            android:id="@+id/remain_text"/>
+	  </LinearLayout>
+ </LinearLayout> 
+  
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/category_area"
+    android:orientation="vertical"/>
     
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/round_corner_summary"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:padding="8dp"
-        android:layout_marginTop="8dp"
-        android:id="@+id/summary">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/total_text"
-            android:textColor="#ffffff"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="/"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:textColor="#ffffff"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/remain_text"
-            android:textColor="#ffffff"/>
-        </LinearLayout>
 </LinearLayout>

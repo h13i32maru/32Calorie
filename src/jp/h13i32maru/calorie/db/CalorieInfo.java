@@ -34,6 +34,10 @@ public class CalorieInfo {
         return (int)mCalorie.getValue();
     }
     
+    public int getType(){
+        return mType.type;
+    }
+    
     public void setValue(int value){
         mCalorie.setValue(value);
     }

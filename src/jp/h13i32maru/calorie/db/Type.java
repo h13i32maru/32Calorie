@@ -34,8 +34,10 @@ public class Type {
     public final int name;
     public final int color;
     public final int order;
+    public final int type;
     
     public Type(int type){
+        this.type = type;
         //TODO:範囲チェックすべき
         name = mNameArray[type];
         color = mColorArray[type];

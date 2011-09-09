@@ -8,11 +8,8 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.ComposeShader;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.Xfermode;
 import android.graphics.Paint.FontMetrics;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -47,6 +44,10 @@ public class MultiBar extends View {
 		super(context, attrs);
 		
 		initAttribute(context, attrs);
+	}
+	
+	public void setBorderWidth(int width){
+	    mBorderWidth = width;
 	}
 	
 	/**
@@ -336,6 +337,7 @@ public class MultiBar extends View {
 
 			shape.draw(canvas);
 			
+			/*
 			if(bar.getSelected()){
 				int halfWidth = 3;
 				paint = new Paint();
@@ -345,6 +347,7 @@ public class MultiBar extends View {
 				paint.setAntiAlias(true);
 				canvas.drawRect(left + halfWidth, top + halfWidth, right - halfWidth, bottom - halfWidth, paint);
 			}
+			*/
 		}
 	}
 	
@@ -357,10 +360,11 @@ public class MultiBar extends View {
 	
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
-		mBarWidth = MeasureSpec.getSize(widthMeasureSpec) - 1;
+	    
+		mBarWidth = MeasureSpec.getSize(widthMeasureSpec) - 1 - (2 * mBorderWidth);
 		mBarHeight = MeasureSpec.getSize(heightMeasureSpec) * 4 / 32;
 		
-		int width = MeasureSpec.getSize(widthMeasureSpec) + 2 * mBorderWidth;
+		int width = MeasureSpec.getSize(widthMeasureSpec);
 		int height = getBarTop() + mBarHeight + mBorderWidth;
 		setMeasuredDimension(width, height);
 	}

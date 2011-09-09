@@ -2,6 +2,7 @@ package jp.h13i32maru.calorie.common;
 
 import java.util.List;
 
+import jp.h13i32maru.calorie.R;
 import jp.h13i32maru.calorie.db.CalorieInfo;
 import jp.h13i32maru.calorie.model.C;
 import jp.h13i32maru.calorie.model.Pref;
@@ -27,15 +28,15 @@ public class CalorieBarBuilder {
         }
     }
     
-    public static int getRemainColor(int remain){
+    public static int getRemainColor(int remain, Context ctx){
         if(remain >= 500){
-            return Color.WHITE;
+            return ctx.getResources().getColor(R.drawable.text_nomarl);
         }
         else if(remain >= 1){
             return Color.rgb(0xff, 0x88, 0x88);
         }
         else{
-            return Color.RED;
+            return Color.parseColor("#ff4444");
         }
     }
 }

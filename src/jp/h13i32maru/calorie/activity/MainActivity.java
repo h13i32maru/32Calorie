@@ -7,55 +7,38 @@ import jp.h13i32maru.calorie.R;
 import jp.h13i32maru.calorie.common.CalorieBarBuilder;
 import jp.h13i32maru.calorie.db.CalorieDAO;
 import jp.h13i32maru.calorie.db.CalorieInfo;
-import jp.h13i32maru.calorie.db.Type;
 import jp.h13i32maru.calorie.model.C;
 import jp.h13i32maru.calorie.model.Pref;
 import jp.h13i32maru.calorie.multibar.MultiBar;
-import jp.h13i32maru.calorie.util._Log;
 import jp.h13i32maru.calorie.widget.CalorieWidget;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
-import android.widget.TableLayout;
-import android.widget.TableRow;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
     private static final String FIRST_LAUNDH = "first_launch";
-
+    
     private MultiBar mMultiBar;
     private CalorieDAO mCalorieDAO;
     private List<CalorieInfo> mCalorieInfoList;
-    private List<TableRow> mTableRowCalorieInfoList = new ArrayList<TableRow>();
+    private List<View> mTypeAreaViewList = new ArrayList<View>();
     private int mSelectedCalorie = -1;
     private int mDelta;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_main);
-        MultiBar multibar = (MultiBar)findViewById(R.id.multi_bar);
-        multibar.setMax(2500);
-        multibar.setTarget(1800);
-        multibar.addBar("0", 250, Type.mColorArray[0]);
-        multibar.addBar("1", 400, Type.mColorArray[1]);
-        multibar.addBar("2", 330, Type.mColorArray[2]);
-        multibar.addBar("3", 130, Type.mColorArray[3]);
-        multibar.addBar("4", 100, Type.mColorArray[4]);
-
-        return;
-        /*
-        
         setContentView(R.layout.main);
+       
         
         mMultiBar = (MultiBar)findViewById(R.id.multi_bar);
         mCalorieDAO = CalorieDAO.getInstance(this);
@@ -63,24 +46,25 @@ public class MainActivity extends Activity {
         
         CalorieBarBuilder.loadConfig(mMultiBar);
         CalorieBarBuilder.loadData(mMultiBar, mCalorieInfoList);
-
-        initTableCalorieInfo();
-        initButton();
         
+        initCategoryArea();
+        setSummary();
+
         mMultiBar.setOnProgressListener(new MultiBar.OnProgressListener() {
     		@Override
     		public void progress(int index, int value, int delta, int totalValue) {
     			CalorieInfo c = mCalorieInfoList.get(index);
     			c.setValue(value);
     			
-    			TextView t = (TextView)mTableRowCalorieInfoList.get(index).findViewById(R.id.calorie_value);
-    			t.setText("" + value);
+    			TextView t = (TextView)mTypeAreaViewList.get(index).findViewById(R.id.type_value);
+    			t.setText("" + value + " cal");
     			
     			mDelta += delta;
+    			/*
     			t = (TextView)mTableRowCalorieInfoList.get(index).findViewById(R.id.calorie_delta);
                 String sign = (mDelta > 0 ? "+" : "");
     			t.setText("" + sign + mDelta);
-    			
+    			*/
     			setSummary();
     		}
     	});
@@ -88,11 +72,11 @@ public class MainActivity extends Activity {
         findViewById(R.id.summary).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(final View v) {
-                v.setBackgroundResource(R.drawable.round_corner_summary_selected);
+                v.setBackgroundResource(R.drawable.summary_bg_selected);
                 v.postDelayed(new Runnable(){
                     @Override
                     public void run() {
-                        v.setBackgroundResource(R.drawable.round_corner_summary);
+                        v.setBackgroundResource(R.drawable.summary_bg);
                     }
                 }, 100);
                 
@@ -107,17 +91,14 @@ public class MainActivity extends Activity {
             Intent intent = new Intent(this, HelpActivity.class);
             startActivity(intent);
         }
-        */
     }
     
     @Override
     protected void onPause(){
         super.onPause();
         
-        /*
         mCalorieDAO.update(mCalorieInfoList);
         CalorieWidget.update(this);
-        */
     }
     
     @Override
@@ -127,7 +108,7 @@ public class MainActivity extends Activity {
     	switch(requestCode){
     	case C.req.config:
     		CalorieBarBuilder.loadConfig(mMultiBar);
-    		initTableCalorieInfo();
+    		initCategoryArea();
     		break;
     	}
     }
@@ -162,7 +143,7 @@ public class MainActivity extends Activity {
             mCalorieDAO.update(mCalorieInfoList);
             mCalorieInfoList = mCalorieDAO.createNew();
         	CalorieBarBuilder.loadData(mMultiBar, mCalorieInfoList);
-        	initTableCalorieInfo();
+        	initCategoryArea();
             break;
         case C.menu.settings:
         {
@@ -188,65 +169,36 @@ public class MainActivity extends Activity {
         return true;
     }
 
-    protected void initButton(){
-    	View incButton = findViewById(R.id.inc_button);
-    	incButton.setOnTouchListener(new OnTouchListener(10, 30));
-
-    	incButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                _Log.d("*****************click");
-            }
-        });
-    	
-        View incSlowButton = findViewById(R.id.inc_slow_button);
-        incSlowButton.setOnTouchListener(new OnTouchListener(10, 100));
+    protected void initCategoryArea(){
+        mTypeAreaViewList.clear();
         
-    	View decButton = findViewById(R.id.dec_button);
-    	decButton.setOnTouchListener(new OnTouchListener(-10, 30));
-    	
-    	View decSlowButton = findViewById(R.id.dec_slow_button);
-    	decSlowButton.setOnTouchListener(new OnTouchListener(-10, 100));
-    }
-    
-    protected void initTableCalorieInfo(){
-        TableLayout tableLayout = (TableLayout)findViewById(R.id.table_calorie_info);
-        tableLayout.removeAllViews();
-        
-        mTableRowCalorieInfoList.clear();
-        mSelectedCalorie = -1;
+        ViewGroup parent = (ViewGroup)findViewById(R.id.category_area);
+        parent.removeAllViews();
         
         LayoutInflater inflater = getLayoutInflater();
+
         for(int i = 0; i < mCalorieInfoList.size(); i++){
-        	TableRow tableRow = (TableRow)inflater.inflate(R.layout.table_row_calorie_info, null);
-        	tableRow.setTag(i);
-        	tableRow.setOnClickListener(new View.OnClickListener() {
-        		@Override
-    			public void onClick(View v) {
-        			int index = (Integer)v.getTag();
-        			selectCalorie(index);
-        		}
-    		});
-
-        	CalorieInfo c = mCalorieInfoList.get(i);
-        	
-        	View view = tableRow.findViewById(R.id.caloire_icon);
-        	Drawable d = getResources().getDrawable(R.drawable.round_corner_icon);
-        	d.setColorFilter(c.getColor(), PorterDuff.Mode.SRC);
-        	
-        	view.setBackgroundDrawable(d);
-        	
-        	TextView nameText = (TextView)tableRow.findViewById(R.id.calorie_name);
-        	nameText.setText(c.getName());
-        	
-        	TextView valueText = (TextView)tableRow.findViewById(R.id.calorie_value);
-        	valueText.setText("" + c.getValue());
-
-        	tableLayout.addView(tableRow);
-        	mTableRowCalorieInfoList.add(tableRow);
+            CalorieInfo ci = mCalorieInfoList.get(i);
+            View view = inflater.inflate(R.layout.category, null);
+            GradientDrawable d = (GradientDrawable)getResources().getDrawable(R.drawable.category_band_bg);
+            d.setColor(ci.getColor());
+            view.findViewById(R.id.category_band_area).setBackgroundDrawable(d);
+            
+            TextView t = (TextView)view.findViewById(R.id.type_name);
+            t.setText(getString(ci.getName()));
+            
+            t = (TextView)view.findViewById(R.id.type_value);
+            t.setText(ci.getValue() + " cal");
+            
+            View decButton = view.findViewById(R.id.dec_button);
+            decButton.setOnTouchListener(new OnTouchListener(i, -10, 30));
+            
+            View incButton = view.findViewById(R.id.inc_button);
+            incButton.setOnTouchListener(new OnTouchListener(i, 10, 30));
+            parent.addView(view);
+            
+            mTypeAreaViewList.add(view);
         }
-        
-        setSummary();
     }
     
     protected void setSummary(){
@@ -254,42 +206,25 @@ public class MainActivity extends Activity {
         TextView t;
         
         t = (TextView)findViewById(R.id.total_text);
-        t.setText(getString(R.string.summary_total) + " " + totalValue);
+        t.setText(getString(R.string.summary_total) + " " + totalValue + " cal");
         
         int remain = mMultiBar.getTarget() - totalValue;
         t = (TextView)findViewById(R.id.remain_text);
-        t.setText(getString(R.string.summary_remain) + " " + remain);
+        t.setText(getString(R.string.summary_remain) + " " + remain + " cal");
         
-        t.setTextColor(CalorieBarBuilder.getRemainColor(remain));
+        t.setTextColor(CalorieBarBuilder.getRemainColor(remain, this));
     }
     
     protected void selectCalorie(int index){
-        mDelta = 0;
-        Drawable selectDrawable = getResources().getDrawable(R.drawable.round_corner_calorie_info);
-        Drawable unselectDrawable = getResources().getDrawable(R.drawable.round_corner_calorie_info_unselect);
-        for(View v: mTableRowCalorieInfoList){
-            TextView t = (TextView)v.findViewById(R.id.calorie_delta);
-            t.setText("");
-        }
-        
         if(index == -1){
-    		for(TableRow t: mTableRowCalorieInfoList){
-    			t.getChildAt(0).setBackgroundDrawable(unselectDrawable);
-    		}
-    		mSelectedCalorie = -1;
-    	}
-    	else if(mSelectedCalorie == index){
-    		mMultiBar.clearBarSelected();
-    		mTableRowCalorieInfoList.get(index).getChildAt(0).setBackgroundDrawable(unselectDrawable);
+            mDelta = 0;
     		mSelectedCalorie = -1;
     	}
     	else{
-    		if(mSelectedCalorie != -1){
-    			mTableRowCalorieInfoList.get(mSelectedCalorie).getChildAt(0).setBackgroundDrawable(unselectDrawable);
-    		}
+    	    if(mSelectedCalorie != index){
+    	        mDelta = 0;
+    	    }
     		mMultiBar.setBarSelected(index);
-    		mTableRowCalorieInfoList.get(index).getChildAt(0).setBackgroundDrawable(selectDrawable);
-    		//mTableRowCalorieInfoList.get(index).setBackgroundColor(Color.rgb(0x44, 0x44, 0x44));
     		mSelectedCalorie = index;
     	}
     }
@@ -299,30 +234,31 @@ public class MainActivity extends Activity {
      * @author h13i32maru
      */
     private class OnTouchListener implements View.OnTouchListener{
-    	int mDelta;
+    	int mId;
+        int mDelta;
     	int mInterval;
     	Toast mToast;
-    	public OnTouchListener(int delta, int interval){
-    		mDelta = delta;
+    	public OnTouchListener(int id, int delta, int interval){
+    		mId = id;
+    	    mDelta = delta;
     		mInterval = interval;
     		mToast = Toast.makeText(MainActivity.this, MainActivity.this.getString(R.string.unselected_calorie), Toast.LENGTH_SHORT);
     	}
     	
     	@Override
     	public boolean onTouch(View v, MotionEvent event) {
-
+    	    selectCalorie(mId);
+    	    
     		switch(event.getAction()){
     		case MotionEvent.ACTION_DOWN:
 	          if(mSelectedCalorie == -1){
 	                mToast.show();
 	                return true;
 	            }
-    		    v.setBackgroundDrawable(getResources().getDrawable(R.drawable.round_corner_arrow));
     			
     			mMultiBar.start(mSelectedCalorie, mDelta, mInterval);
     			return true;
     		case MotionEvent.ACTION_UP:
-    			v.setBackgroundDrawable(null);
     			mMultiBar.stop();
     			return true;
     		}

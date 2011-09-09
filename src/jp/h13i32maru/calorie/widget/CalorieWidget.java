@@ -60,6 +60,7 @@ public class CalorieWidget extends AppWidgetProvider {
             int height = (int)(info.minHeight / 2.25);
             
             MultiBar bar = new MultiBar(context);
+            bar.setBorderWidth(0);
             if(metrics.density >= 2){
                 bar.setTextSize(18);
             }
@@ -83,11 +84,11 @@ public class CalorieWidget extends AppWidgetProvider {
             remoteViews.setImageViewBitmap(R.id.bar_image, bitmap);
             
             remoteViews.setCharSequence(R.id.total_text, "setText", context.getString(R.string.summary_total) + " " + total);
-            remoteViews.setFloat(R.id.total_text, "setTextSize", 12);
+            remoteViews.setFloat(R.id.total_text, "setTextSize", 11);
             
             remoteViews.setCharSequence(R.id.remain_text, "setText", context.getString(R.string.summary_remain) + " " + remain);
-            remoteViews.setFloat(R.id.remain_text, "setTextSize", 12);
-            remoteViews.setInt(R.id.remain_text, "setTextColor", CalorieBarBuilder.getRemainColor(remain));
+            remoteViews.setFloat(R.id.remain_text, "setTextSize", 11);
+            remoteViews.setInt(R.id.remain_text, "setTextColor", CalorieBarBuilder.getRemainColor(remain, context));
             
             Intent intent = new Intent(context, MainActivity.class);
             intent.setAction(Intent.ACTION_MAIN);
