@@ -35,6 +35,8 @@ public class MultiBar extends View {
 	private int mBarHeight;
 	private int mOneColor = -1;
 	private int mBorderWidth = 4;
+	private int mDelta = 0;
+	private int mSelectedBar = -1;
 	
 	public MultiBar(Context context){
 	    super(context);
@@ -47,6 +49,11 @@ public class MultiBar extends View {
 	}
 	
 	public void addValue(int index, int delta){
+	    if(mSelectedBar != index){
+	        setBarSelected(index);
+	        mDelta = 0;
+	    }
+	    mDelta += delta;
 	    mBarList.get(index).addValue(delta);
 	    int value = getBarVaue(index);
 	    int total = getTotalBarValue();
@@ -116,12 +123,14 @@ public class MultiBar extends View {
 
 	public void setBarSelected(int index){
 		clearBarSelected();
+        mSelectedBar = index;
 		Bar bar = mBarList.get(index);
 		bar.setSelected(true);
 		postInvalidate();
 	}
 	
 	public void clearBarSelected(){
+	    mSelectedBar = -1;
 		for(Bar bar: mBarList){
 			bar.setSelected(false);
 		}
@@ -135,6 +144,9 @@ public class MultiBar extends View {
 		}
 		
 		final Bar bar = mBarList.get(index);
+		if(mSelectedBar != index){
+		    mDelta = 0;
+		}
 		setBarSelected(index);
 		mStartFlag = true;
 		new Thread(new Runnable(){
@@ -144,6 +156,7 @@ public class MultiBar extends View {
 					
 					int value = bar.addValue(delta);
 					int totalValue = getTotalBarValue();
+					mDelta += delta;
 					
 					if(totalValue > mMaxValue){
 						value = value - (totalValue - mMaxValue);
@@ -358,6 +371,12 @@ public class MultiBar extends View {
 				canvas.drawRect(left + halfWidth, top + halfWidth, right - halfWidth, bottom - halfWidth, paint);
 			}
 			*/
+			
+			if(bar.getSelected()){
+		         int textTop = (int)(getPaddingTop() - mPaintText.ascent());
+		         String text = (mDelta > 0 ? "+" : "") + mDelta;
+		         canvas.drawText(text, right - mPaintText.measureText(text) / 2, textTop, mPaintText);
+			}
 		}
 	}
 	

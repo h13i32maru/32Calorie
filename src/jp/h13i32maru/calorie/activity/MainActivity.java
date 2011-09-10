@@ -32,7 +32,6 @@ public class MainActivity extends Activity {
     private List<CalorieInfo> mCalorieInfoList;
     private List<View> mTypeAreaViewList = new ArrayList<View>();
     private int mSelectedCalorie = -1;
-    private int mDelta;
     private Handler mHandler;
     
     @Override
@@ -60,12 +59,6 @@ public class MainActivity extends Activity {
     			TextView t = (TextView)mTypeAreaViewList.get(index).findViewById(R.id.type_value);
     			t.setText("" + value + " cal");
     			
-    			mDelta += delta;
-    			/*
-    			t = (TextView)mTableRowCalorieInfoList.get(index).findViewById(R.id.calorie_delta);
-                String sign = (mDelta > 0 ? "+" : "");
-    			t.setText("" + sign + mDelta);
-    			*/
     			setSummary();
     		}
     	});
@@ -224,13 +217,9 @@ public class MainActivity extends Activity {
     
     protected void selectCalorie(int index){
         if(index == -1){
-            mDelta = 0;
     		mSelectedCalorie = -1;
     	}
     	else{
-    	    if(mSelectedCalorie != index){
-    	        mDelta = 0;
-    	    }
     		mMultiBar.setBarSelected(index);
     		mSelectedCalorie = index;
     	}
