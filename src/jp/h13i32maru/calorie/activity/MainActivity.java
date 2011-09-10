@@ -121,11 +121,11 @@ public class MainActivity extends Activity {
         item = menu.add(Menu.NONE , C.menu.clear, Menu.NONE , getString(R.string.menu_clear));
         item.setIcon(android.R.drawable.ic_menu_delete);
         
-        item = menu.add(Menu.NONE, C.menu.settings, Menu.NONE, getString(R.string.menu_settings));
-        item.setIcon(android.R.drawable.ic_menu_preferences);
-        
         item = menu.add(Menu.NONE, C.menu.line_chart, Menu.NONE, getString(R.string.menu_line_chart));
         item.setIcon(android.R.drawable.ic_menu_more);
+        
+        item = menu.add(Menu.NONE, C.menu.settings, Menu.NONE, getString(R.string.menu_settings));
+        item.setIcon(android.R.drawable.ic_menu_preferences);
         
         item = menu.add(Menu.NONE, C.menu.help, Menu.NONE, getString(R.string.menu_help));
         item.setIcon(android.R.drawable.ic_menu_help);
