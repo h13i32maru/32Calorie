@@ -15,6 +15,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,7 +23,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends Activity {
     private static final String FIRST_LAUNDH = "first_launch";
@@ -33,16 +33,17 @@ public class MainActivity extends Activity {
     private List<View> mTypeAreaViewList = new ArrayList<View>();
     private int mSelectedCalorie = -1;
     private int mDelta;
+    private Handler mHandler;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
        
-        
         mMultiBar = (MultiBar)findViewById(R.id.multi_bar);
         mCalorieDAO = CalorieDAO.getInstance(this);
         mCalorieInfoList = mCalorieDAO.getLastCalorieInfoList();
+        mHandler = new Handler();
         
         CalorieBarBuilder.loadConfig(mMultiBar);
         CalorieBarBuilder.loadData(mMultiBar, mCalorieInfoList);
@@ -191,10 +192,10 @@ public class MainActivity extends Activity {
             t.setText(ci.getValue() + " cal");
             
             View decButton = view.findViewById(R.id.dec_button);
-            decButton.setOnTouchListener(new OnTouchListener(i, -10, 30));
+            decButton.setOnTouchListener(new OnButtonListener(mHandler, i, -10, 30));
             
             View incButton = view.findViewById(R.id.inc_button);
-            incButton.setOnTouchListener(new OnTouchListener(i, 10, 30));
+            incButton.setOnTouchListener(new OnButtonListener(mHandler, i, 10, 30));
             parent.addView(view);
             
             mTypeAreaViewList.add(view);
@@ -233,37 +234,70 @@ public class MainActivity extends Activity {
      * バーの値を増減させるためのボタンにセットするリスナー
      * @author h13i32maru
      */
-    private class OnTouchListener implements View.OnTouchListener{
-    	int mId;
-        int mDelta;
-    	int mInterval;
-    	Toast mToast;
-    	public OnTouchListener(int id, int delta, int interval){
-    		mId = id;
-    	    mDelta = delta;
-    		mInterval = interval;
-    		mToast = Toast.makeText(MainActivity.this, MainActivity.this.getString(R.string.unselected_calorie), Toast.LENGTH_SHORT);
-    	}
-    	
-    	@Override
-    	public boolean onTouch(View v, MotionEvent event) {
-    	    selectCalorie(mId);
-    	    
-    		switch(event.getAction()){
-    		case MotionEvent.ACTION_DOWN:
-	          if(mSelectedCalorie == -1){
-	                mToast.show();
-	                return true;
-	            }
-    			
-    			mMultiBar.start(mSelectedCalorie, mDelta, mInterval);
-    			return true;
-    		case MotionEvent.ACTION_UP:
-    			mMultiBar.stop();
-    			return true;
-    		}
-    		return false;
-    	}
-    	
+    public class OnButtonListener implements View.OnTouchListener{
+        private final int mDelayMilliTime = 125;
+        private Handler mHandler;
+        private int mIndex;
+        private int mDelta;
+        private int mInterval;
+        private boolean mDownFlag = false;
+        private Runnable mRunnable;
+        private boolean mHoldDown = false;
+        private boolean mProcessEventFlag = false;
+        
+        public OnButtonListener(Handler handler, int index, int delta, int interval){
+            mHandler = handler;
+            mIndex = index;
+            mDelta = delta;
+            mInterval = interval;
+            mRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    if(mDownFlag){
+                        onHoldDown();
+                    }
+                    else{
+                        onSingleTap();
+                    }
+                }
+            };
+        }
+        
+        protected void onHoldDown(){
+            mHoldDown = true;
+            mMultiBar.start(mIndex, mDelta, mInterval);
+        }
+        
+        protected void onHoldUp(){
+            mHoldDown = false;
+            mMultiBar.stop();
+            mProcessEventFlag = false;
+        }
+        
+        protected void onSingleTap(){
+            mMultiBar.addValue(mIndex, mDelta);
+            mProcessEventFlag = false;
+        }
+        
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            switch(event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                if(mProcessEventFlag){
+                    return true;
+                }
+                mProcessEventFlag = true;
+                mDownFlag = true;
+                mHandler.postDelayed(mRunnable, mDelayMilliTime);
+                return true;
+            case MotionEvent.ACTION_UP:
+                mDownFlag = false;
+                if(mHoldDown){
+                    onHoldUp();
+                }
+                return true;
+            }
+            return false;
+        }
     }
 }

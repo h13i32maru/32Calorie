@@ -57,7 +57,7 @@ public class CalorieWidget extends AppWidgetProvider {
             AppWidgetProviderInfo info = appWidgetManager.getAppWidgetInfo(appWidgetId);
             
             int width = info.minWidth - padding;
-            int height = (int)(info.minHeight / 2.25);
+            int height = (int)(info.minHeight / 1.75);
             
             MultiBar bar = new MultiBar(context);
             bar.setBorderWidth(0);

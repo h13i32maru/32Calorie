@@ -46,6 +46,14 @@ public class MultiBar extends View {
 		initAttribute(context, attrs);
 	}
 	
+	public void addValue(int index, int delta){
+	    mBarList.get(index).addValue(delta);
+	    int value = getBarVaue(index);
+	    int total = getTotalBarValue();
+	    mOnProgress.progress(index, value, delta, total);
+	    postInvalidate();
+	}
+	
 	public void setBorderWidth(int width){
 	    mBorderWidth = width;
 	}
@@ -361,7 +369,7 @@ public class MultiBar extends View {
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
 	    
-		mBarWidth = MeasureSpec.getSize(widthMeasureSpec) - 1 - (2 * mBorderWidth);
+		mBarWidth = MeasureSpec.getSize(widthMeasureSpec) - (2 * mBorderWidth);
 		mBarHeight = MeasureSpec.getSize(heightMeasureSpec) * 4 / 32;
 		
 		int width = MeasureSpec.getSize(widthMeasureSpec);
