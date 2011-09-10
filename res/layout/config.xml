@@ -3,43 +3,48 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:orientation="vertical"
   android:layout_width="match_parent"
-  android:layout_height="match_parent">
+  android:layout_height="match_parent"
+  android:background="@drawable/background">
+  
+  <include layout="@layout/title"/>
   
   <TextView
     style="@style/ConfigCategoryTitle"
     android:text="@string/config_category_general"
-    android:background="@drawable/config_category_title"/>
+    android:textColor="@drawable/text_nomarl"
+    android:background="@drawable/config_title"
+    android:textStyle="bold"/>
   
   <TableLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:stretchColumns="0"
     android:padding="4dp">
-    
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/config_general_target"
-                android:textColor="#ffffff"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minEms="4"
-                android:id="@+id/target"
-                android:inputType="number"/>
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <TextView
+             android:layout_width="100dp"
+             android:layout_height="wrap_content"
+             android:text="@string/config_general_target"
+             android:textColor="@drawable/text_reverse"
+             android:textStyle="bold"/>
+         <EditText
+             android:layout_width="100dp"
+             android:layout_height="wrap_content"
+             android:id="@+id/target"
+             android:inputType="number"/>
     </TableRow>
-        
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/config_general_max"
-                android:textColor="#ffffff"/>
+                android:textColor="@drawable/text_reverse"
+                android:textStyle="bold"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -47,44 +52,50 @@
                 android:id="@+id/max"
                 android:inputType="number"/>
     </TableRow>
-    
-    </TableLayout>
+</TableLayout>
     
     <TextView
        style="@style/ConfigCategoryTitle"
        android:text="@string/config_category_widget"
-       android:background="@drawable/config_category_title"/>
+       android:background="@drawable/config_title"
+       android:textColor="@drawable/text_nomarl"
+       android:textStyle="bold"/>
    
     <TableLayout
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:stretchColumns="0"
 	    android:padding="4dp">
 	    <TableRow
 	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content">
+	        android:layout_height="wrap_content"
+	        android:gravity="center">
 	            <TextView
-	                android:layout_width="match_parent"
+	                android:layout_width="100dp"
 	                android:layout_height="wrap_content"
 	                android:text="@string/config_widget_background"
-	                android:textColor="#ffffff"/>
+	                android:textColor="@drawable/text_reverse"
+                    android:textStyle="bold"/>
 	            <CheckBox
-	                android:layout_width="wrap_content"
+	                android:layout_width="100dp"
 	                android:layout_height="wrap_content"
-	                android:id="@+id/widget_background"/>
+	                android:id="@+id/widget_background"
+	                android:layout_gravity="right"/>
 	    </TableRow>
 	    <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/config_widget_one_color"
-                    android:textColor="#ffffff"/>
+                    android:textColor="@drawable/text_reverse"
+                    android:textStyle="bold"/>
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/widget_one_color"/>
+                    android:id="@+id/widget_one_color"
+                    android:layout_gravity="right"/>
         </TableRow>
     </TableLayout>   
 </LinearLayout>

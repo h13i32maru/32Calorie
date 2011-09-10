@@ -22,17 +22,17 @@ containing a value of this type.
     }
     public static final class drawable {
         public static final int background=0x7f020000;
-        public static final int button_inner=0x7f020014;
-        public static final int button_outer=0x7f020013;
+        public static final int button_inner=0x7f020015;
+        public static final int button_outer=0x7f020014;
         public static final int category_background=0x7f020001;
         public static final int category_band_bg=0x7f020002;
-        public static final int chart_axis=0x7f020018;
-        public static final int chart_axis_label=0x7f020019;
-        public static final int chart_bg=0x7f020016;
-        public static final int chart_default_user_line=0x7f02001a;
-        public static final int chart_line=0x7f020015;
-        public static final int chart_point=0x7f020017;
-        public static final int config_category_title=0x7f020003;
+        public static final int chart_axis=0x7f020019;
+        public static final int chart_axis_label=0x7f02001a;
+        public static final int chart_bg=0x7f020017;
+        public static final int chart_default_user_line=0x7f02001b;
+        public static final int chart_line=0x7f020016;
+        public static final int chart_point=0x7f020018;
+        public static final int config_title=0x7f020003;
         public static final int dec_inc_bg=0x7f020004;
         public static final int help=0x7f020005;
         public static final int icon=0x7f020006;
@@ -40,15 +40,16 @@ containing a value of this type.
         public static final int round_corner_widget=0x7f020008;
         public static final int summary_bg=0x7f020009;
         public static final int summary_bg_selected=0x7f02000a;
-        public static final int summary_selected=0x7f02001b;
+        public static final int summary_selected=0x7f02001c;
         public static final int text_nomarl=0x7f02000d;
+        public static final int text_reverse=0x7f02000e;
         public static final int transparent_background=0x7f02000c;
         public static final int transparent_background2=0x7f02000b;
-        public static final int type0_color=0x7f02000e;
-        public static final int type1_color=0x7f02000f;
-        public static final int type2_color=0x7f020010;
-        public static final int type3_color=0x7f020011;
-        public static final int type4_color=0x7f020012;
+        public static final int type0_color=0x7f02000f;
+        public static final int type1_color=0x7f020010;
+        public static final int type2_color=0x7f020011;
+        public static final int type3_color=0x7f020012;
+        public static final int type4_color=0x7f020013;
     }
     public static final class id {
         public static final int bar_image=0x7f070012;

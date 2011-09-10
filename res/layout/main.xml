@@ -14,7 +14,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_marginLeft="14dp"
-    android:layout_marginRight="14dp">
+    android:layout_marginRight="14dp"
+    android:layout_marginTop="8dp">
     
         <jp.h13i32maru.calorie.multibar.MultiBar
         android:layout_width="fill_parent"
