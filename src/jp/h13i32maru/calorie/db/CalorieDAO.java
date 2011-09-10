@@ -81,12 +81,35 @@ public class CalorieDAO implements CalorieConstants{
         mDB = new DBOpenHelper(c).getWritableDatabase();
     }
     
+    public int groupCount(){
+        String sql = String.format("select count(1) as count from (select %s from %s group by %s)", column.group_id, table_name, column.group_id);
+        Cursor c = mDB.rawQuery(sql, null);
+        c.moveToFirst();
+        int count = c.getInt(c.getColumnIndex("count"));
+        c.close();
+        return count;
+    }
+    
+    public long getFirstGroup(){
+        String sql = String.format("select min(%s) as min_group from %s", column.group_id, table_name);
+        Cursor c = mDB.rawQuery(sql, null);
+        c.moveToFirst();
+        int columnIndex = c.getColumnIndex("min_group");
+        if(c.isNull(columnIndex)){
+            return -1;
+        }
+        long group = c.getLong(columnIndex);
+        c.close();
+        return group;
+    }
+    
     public long getLastGroup(){
         String sql = String.format("select max(%s) as max_group from %s", column.group_id, table_name);
         Cursor c = mDB.rawQuery(sql, null);
         c.moveToFirst();
         int columnIndex = c.getColumnIndex("max_group");
         if(c.isNull(columnIndex)){
+            c.close();
             return -1;
         }
         long group = c.getLong(columnIndex);
@@ -140,6 +163,13 @@ public class CalorieDAO implements CalorieConstants{
                 long id = mDB.insert(table_name, null, values);
                 calorie.setId(id);
             }
+            
+            //DBの残していく数は一年分(365日)とする
+            if(groupCount() > 365){
+                long firstGroup = getFirstGroup();
+                mDB.delete(table_name, column.group_id + " = ?", new String[]{"" + firstGroup});
+            }
+            
             mDB.setTransactionSuccessful();
         }catch(Exception e){
             _Log.e("", e);
