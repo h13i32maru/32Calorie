@@ -12,7 +12,7 @@
     <string name="config_category_general">全般</string>
     <string name="config_category_widget">ウィジェット</string>
     <string name="config_general_target">目標</string>
-    <string name="config_general_max">上限</string>
+    <string name="config_general_max">最大</string>
     <string name="config_widget_background">背景表示</string>
     <string name="config_widget_one_color">1色表示</string>
     <string name="menu_clear">クリア</string>
@@ -22,17 +22,14 @@
     <string name="chart_no_data">カロリーのデータがありません</string>
     <string name="unselected_calorie">カロリーを選択してください</string>
     <string name="help">
-32Calorieは一日の摂取カロリーを記録していくアプリです。\n\n
+32Calorieは一日の摂取カロリーを簡単に記録していくシンプルなアプリです。\n\n
 
-例えば朝食に500カロリーを摂取した場合\n
-(1)「朝食」をタップします\n
-(2)「>>」を押し続けてバーが500に到達したら指を離します\n\n
+例えば朝食に500Kカロリーを摂取した場合、「朝食」の「+」を押し続けてバーが500に到達したら指を離すだけで記録できます。\n\n
 
 32Calorieのウィジェットをホーム画面に設置することもできます。\n
 (1) ホーム画面を長押しします\n
 (2) ウィジェットを選択します\n
 (3) 32Calorieを選択します\n\n
 
-記録したカロリーをクリアする場合はメニューの「クリア」を選択してください。\n\n
-最大値と目標値はメニューの「設定」から変更することができます。</string>
+さらに詳しい使い方はhttp://h13i32maru.jp/32/calorie を御覧ください。</string>
 </resources>

@@ -22,11 +22,9 @@
     <string name="chart_no_data">Calorie data is nothing</string>
     <string name="unselected_calorie">Please select calorie</string>
     <string name="help">
-32Calorie is an app will record the calories of the day.\n\n
+32Calorie is an simple app will easy record the calories of the day.\n\n
 
-If you consume 500 calories for breakfast, for example.\n
-(1) Tap "Breakfast"\n
-(2) Holding down the ">>" and release when the bar reached 500\n\n
+If you consume 500 calories for breakfast, holding down "+" of "Breakfast" and release when the bar reached 500\n\n
 
 You can use 32Calorie widget.\n
 (1) Press and hold the home screen\n
@@ -34,5 +32,7 @@ You can use 32Calorie widget.\n
 (3) Select 32Calorie\n\n
 
 To clear the recorded calories, please select "Clear" in the menu.\n\n
-To change maximum and target values, please select "Settings" in the menu.</string>
+To change maximum and target values, please select "Settings" in the menu.\n\n
+
+Using the more detailed http://h13i32maru.jp/32/calorie .</string>
 </resources>

@@ -5,12 +5,12 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:padding="8dp"
-  android:background="#ff555555">
+  android:background="@drawable/background">
   
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/help"
+    android:background="@drawable/summary_bg"
     android:orientation="horizontal"
     android:padding="8dp"
     android:gravity="center_vertical">
@@ -30,19 +30,17 @@
 		                <TextView
 		                    android:layout_width="wrap_content"
 		                    android:layout_height="wrap_content"
-		                    android:textColor="#ffffff"
+		                    android:textColor="@drawable/text_nomarl"
 		                    android:textSize="24sp"
-		                    android:shadowColor="#000000"
-		                    android:shadowDx="2.0"
-		                    android:shadowDy="2.0"
-		                    android:shadowRadius="4.0"
+                            android:textStyle="bold"
 		                    android:text="@string/app_name"/>
 		                <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="#ffffff"
+                            android:textColor="@drawable/text_nomarl"
                             android:textSize="12sp"
                             android:layout_marginLeft="4dp"
+                            android:textStyle="bold"
                             android:text=""
                             android:id="@+id/help_version"/>
                  </LinearLayout>
@@ -51,14 +49,14 @@
 		            android:layout_height="wrap_content"
 		            android:text="http://h13i32maru.jp"
 		            android:autoLink="web"
-		            android:textColorLink="#1111ff"/>   
+		            android:textStyle="bold"/>   
          </LinearLayout>    
     </LinearLayout>
     
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/help"
+        android:background="@drawable/summary_bg"
         android:padding="8dp"
         android:layout_marginTop="8dp">
         
@@ -69,8 +67,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#ffffff"
-            android:text="@string/help"/>
+            android:textColor="@drawable/text_nomarl"
+            android:text="@string/help"
+            android:textStyle="bold"
+            android:autoLink="web"/>
         </ScrollView>
         
      </LinearLayout>
