@@ -57,7 +57,7 @@ public class CalorieWidget extends AppWidgetProvider {
             AppWidgetProviderInfo info = appWidgetManager.getAppWidgetInfo(appWidgetId);
             
             int width = info.minWidth - padding;
-            int height = (int)(info.minHeight / 1.75);
+            int height = (int)(info.minHeight / 2);
             
             MultiBar bar = new MultiBar(context);
             bar.setBorderWidth(0);
@@ -71,7 +71,7 @@ public class CalorieWidget extends AppWidgetProvider {
             bar.layout(0, 0, width, height);
             bar.setDrawingCacheEnabled(true);
             if(oneColor){
-                bar.setOneColor(Color.argb(0xff, 0xf0, 0x51, 0x51));
+                bar.setOneColor(context.getResources().getColor(R.drawable.type0_color));
             }
             CalorieBarBuilder.loadConfig(bar);
             CalorieBarBuilder.loadData(bar, calorieInfoList);
