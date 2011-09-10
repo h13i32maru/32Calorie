@@ -7,7 +7,7 @@
   
    <stroke
         android:width="3dp"
-        android:color="#5f987a"/>
+        android:color="@drawable/button_outer"/>
    <solid
-        android:color="#bbae3f"/>
+        android:color="@drawable/button_inner"/>
 </shape>

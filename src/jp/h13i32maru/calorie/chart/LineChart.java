@@ -3,17 +3,23 @@ package jp.h13i32maru.calorie.chart;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.h13i32maru.calorie.R;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
 
 public class LineChart extends View {
+    
+    private static final int BAR_RADIUS_X = 10;
+    private static final int BAR_RADIUS_Y = 10;
 
     private float mXMin = 0;
     private float mXMax = 0;
@@ -32,6 +38,13 @@ public class LineChart extends View {
     
     private float mPointRadius = 6;
 
+    private Paint mAxisPaint;
+    private Paint mAxisLabelPaint;
+    private Paint mBGPaint;
+    private Paint mLinePaint;
+    private Paint mPointPaint;
+    private Paint mDefaultUserLinePaint;
+    
     private List<Line> mLineList = new ArrayList<Line>();
     private List<Point> mPointList = new ArrayList<Point>();
     
@@ -46,10 +59,43 @@ public class LineChart extends View {
         
         float density = metrics.density;
         
+        Resources r = context.getResources();
+        
         mTextPaint = new Paint();
         mTextPaint.setTextSize(11 * density);
         mTextPaint.setAntiAlias(true);
-        mTextPaint.setColor(Color.rgb(0xaa, 0xaa, 0xaa));
+        mTextPaint.setColor(context.getResources().getColor(R.drawable.text_nomarl));
+        
+        mAxisPaint = new Paint();
+        mAxisPaint.setStyle(Paint.Style.STROKE);
+        mAxisPaint.setColor(r.getColor(R.drawable.chart_axis));
+        
+        mAxisLabelPaint = new Paint();
+        mAxisLabelPaint.setTextSize(11 * density);
+        mAxisLabelPaint.setAntiAlias(true);
+        mAxisLabelPaint.setColor(context.getResources().getColor(R.drawable.chart_axis_label));
+        
+        mBGPaint = new Paint();
+        mBGPaint.setAntiAlias(true);
+        mBGPaint.setStyle(Paint.Style.FILL);
+        mBGPaint.setColor(r.getColor(R.drawable.chart_bg));
+        
+        mLinePaint = new Paint();
+        mLinePaint.setStyle(Paint.Style.STROKE);
+        mLinePaint.setColor(r.getColor(R.drawable.chart_line));
+        mLinePaint.setStrokeWidth(2);
+        mLinePaint.setAntiAlias(true);
+        
+        mPointPaint = new Paint();
+        mPointPaint.setStyle(Paint.Style.FILL);
+        mPointPaint.setColor(r.getColor(R.drawable.chart_point));
+        mPointPaint.setAntiAlias(true);
+        
+        mDefaultUserLinePaint = new Paint();
+        mDefaultUserLinePaint.setStyle(Paint.Style.STROKE);
+        mDefaultUserLinePaint.setColor(r.getColor(R.drawable.chart_default_user_line));
+        mDefaultUserLinePaint.setStrokeWidth(2);
+        mDefaultUserLinePaint.setAntiAlias(true);
     }
     
     public void setXAixsLabeler(AxisLabeler labeler){
@@ -96,21 +142,15 @@ public class LineChart extends View {
         int bottom = getMeasuredHeight();
         
         Rect rect;
-        Paint paint;
         
         //背景
         rect = new Rect(0, 0, right, bottom);
-        paint = new Paint();
-        paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.WHITE);
-        canvas.drawRect(rect, paint);
+        RectF rectF = new RectF(rect);
+        canvas.drawRoundRect(rectF, BAR_RADIUS_X, BAR_RADIUS_Y, mBGPaint);
         
         //X軸
-        paint = new Paint();
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setColor(Color.rgb(0xaa, 0xaa, 0xaa));
         for(float x = mXMin; x <= mXMax; x += mXDistance){
-            canvas.drawLine(x(x), y(mYMin), x(x), y(mYMax), paint);
+            canvas.drawLine(x(x), y(mYMin), x(x), y(mYMax), mAxisPaint);
             
             String label;
             if(mXAxisLabeler != null){
@@ -121,28 +161,25 @@ public class LineChart extends View {
             }
             float tx = x(x) - mTextPaint.measureText(label) / 2;
             float ty = y(mYMin) - mTextPaint.ascent();
-            canvas.drawText(label, tx, ty, mTextPaint);
+            canvas.drawText(label, tx, ty, mAxisLabelPaint);
         }
         
         //Y軸
         for(float y = mYMin; y <= mYMax; y += mYDistance){
-            canvas.drawLine(x(mXMin), y(y), x(mXMax), y(y), paint);
+            canvas.drawLine(x(mXMin), y(y), x(mXMax), y(y), mAxisPaint);
             
             String label = formatNum(y) + " ";
             float tx = x(mXMin) - mTextPaint.measureText(label);
             float ty = y(y) - (mTextPaint.ascent() / 2) - mTextPaint.descent() / 2;
-            canvas.drawText(label, tx, ty, mTextPaint);
+            canvas.drawText(label, tx, ty, mAxisLabelPaint);
         }
         
         //外部から指定されて線を描画
-        Paint paint2;
+        Paint paint;
         for(Line line: mLineList){
             paint = line.getPaint();
             if(paint == null){
-                paint = new Paint();
-                paint.setColor(Color.rgb(0xff, 0x44, 0x44));
-                paint.setStyle(Paint.Style.STROKE);
-                paint.setStrokeWidth(2);
+                paint = mDefaultUserLinePaint;
             }
             
             float startX = x(line.startX);
@@ -151,21 +188,12 @@ public class LineChart extends View {
             float stopY = y(line.stopY);
             canvas.drawLine(startX, startY, stopX, stopY, paint);
             
-            paint2 = new Paint();
-            paint2.setColor(Color.rgb(0x00, 0x00, 0x00));
-            paint2.setTextSize(mTextPaint.getTextSize());
-            paint2.setAntiAlias(true);
-            float tx = stopX - paint2.measureText(line.label);
-            float ty = stopY + paint2.ascent() / 2;
-            canvas.drawText(line.label, tx, ty, paint2);
+            float tx = stopX - mTextPaint.measureText(line.label);
+            float ty = stopY + mTextPaint.ascent() / 2;
+            canvas.drawText(line.label, tx, ty, mTextPaint);
         }
         
         //座標を折れ線で接続
-        paint = new Paint();
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setColor(Color.rgb(0xff, 0x44, 0x44));
-        paint.setStrokeWidth(2);
-        paint.setAntiAlias(true);
         for(int i = 0; i < mPointList.size(); i++){
             if(i + 1 < mPointList.size()){
                 Point p1 = mPointList.get(i);
@@ -174,24 +202,16 @@ public class LineChart extends View {
                 float startY = y(p1.y);
                 float stopX = x(p2.x);
                 float stopY = y(p2.y);
-                canvas.drawLine(startX, startY, stopX, stopY, paint);
+                canvas.drawLine(startX, startY, stopX, stopY, mLinePaint);
             }
         }
         
         //各座標を描画
-        paint = new Paint();
-        paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.rgb(0xff, 0x44, 0x44));
-        paint.setAntiAlias(true);
-        paint2 = new Paint();
-        paint2.setAntiAlias(true);
-        paint2.setTextSize(mTextPaint.getTextSize());
-        paint2.setColor(Color.rgb(0x00, 0x00, 0x00));
         for(Point point : mPointList){
             float x = x(point.x);
             float y = y(point.y);
-            canvas.drawCircle(x, y, mPointRadius, paint);
-            canvas.drawText(point.label, x - paint2.measureText(point.label) / 2, y - mPointRadius - paint2.descent(), paint2);
+            canvas.drawCircle(x, y, mPointRadius, mPointPaint);
+            canvas.drawText(point.label, x - mTextPaint.measureText(point.label) / 2, y - mPointRadius - mTextPaint.descent(), mTextPaint);
         }
     }
     

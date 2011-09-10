@@ -22,8 +22,16 @@ containing a value of this type.
     }
     public static final class drawable {
         public static final int background=0x7f020000;
+        public static final int button_inner=0x7f020014;
+        public static final int button_outer=0x7f020013;
         public static final int category_background=0x7f020001;
         public static final int category_band_bg=0x7f020002;
+        public static final int chart_axis=0x7f020018;
+        public static final int chart_axis_label=0x7f020019;
+        public static final int chart_bg=0x7f020016;
+        public static final int chart_default_user_line=0x7f02001a;
+        public static final int chart_line=0x7f020015;
+        public static final int chart_point=0x7f020017;
         public static final int config_category_title=0x7f020003;
         public static final int dec_inc_bg=0x7f020004;
         public static final int help=0x7f020005;

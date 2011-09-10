@@ -23,4 +23,12 @@
     <drawable name="type2_color">#669b6a</drawable>
     <drawable name="type3_color">#bcb037</drawable>
     <drawable name="type4_color">#829246</drawable>
+    <drawable name="button_outer">#5f987a</drawable>
+    <drawable name="button_inner">#bbae3f</drawable>
+    <drawable name="chart_line">#645d52</drawable>
+    <drawable name="chart_bg">#ddd6ae</drawable>
+    <drawable name="chart_point">#5f987a</drawable>
+    <drawable name="chart_axis">#4d3d32</drawable>
+    <drawable name="chart_axis_label">#4d3d32</drawable>
+    <drawable name="chart_default_user_line">#ff4444</drawable>
 </resources>
