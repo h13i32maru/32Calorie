@@ -289,6 +289,9 @@ public class MultiBar extends View {
 		
 		for(int i = 0; i < mBarList.size(); i++){
 			Bar bar = mBarList.get(i);
+			if(bar.getValue() <= 0){
+			    continue;
+			}
 			left = right;
 			right = left + (mBarWidth * bar.getValue() / mMaxValue);
 
@@ -308,8 +311,7 @@ public class MultiBar extends View {
 				outer[5] = BAR_RADIUS_Y;
 				
 				//最後のバーの場合、整数の計算で切り捨てが発生して少し隙間ができる場合があるのでぴったりになるように調整する
-				//バーの書き始めが0座標であることを前提にしている。
-				right = mBarWidth;
+				right = getBarLeft() + mBarWidth;
 			}
 			RoundRectShape round = new RoundRectShape(outer, null, null);
 			ShapeDrawable shape = new ShapeDrawable(round);
