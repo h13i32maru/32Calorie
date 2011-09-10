@@ -65,6 +65,7 @@ public class LineChart extends View {
         mTextPaint.setTextSize(11 * density);
         mTextPaint.setAntiAlias(true);
         mTextPaint.setColor(context.getResources().getColor(R.drawable.text_nomarl));
+        mTextPaint.setFakeBoldText(true);
         
         mAxisPaint = new Paint();
         mAxisPaint.setStyle(Paint.Style.STROKE);
@@ -73,6 +74,7 @@ public class LineChart extends View {
         mAxisLabelPaint = new Paint();
         mAxisLabelPaint.setTextSize(11 * density);
         mAxisLabelPaint.setAntiAlias(true);
+        mAxisLabelPaint.setFakeBoldText(true);
         mAxisLabelPaint.setColor(context.getResources().getColor(R.drawable.chart_axis_label));
         
         mBGPaint = new Paint();

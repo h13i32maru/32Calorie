@@ -252,7 +252,7 @@ public class MultiBar extends View {
 		drawAllBar(canvas);
 	        
 		//目標ラインの描画
-		int targetLeft = mBarWidth * mTargetValue / mMaxValue; 
+		int targetLeft = mBarWidth * mTargetValue / mMaxValue;
 		rect = new Rect(targetLeft - 2, getBarTop(), targetLeft + 2, getBarTop() + mBarHeight);
 		paint = new Paint();
 		paint.setStyle(Paint.Style.FILL);
