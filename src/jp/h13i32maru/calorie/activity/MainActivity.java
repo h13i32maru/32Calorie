@@ -73,16 +73,22 @@ public class MainActivity extends Activity {
         findViewById(R.id.summary).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(final View v) {
-                v.setBackgroundResource(R.drawable.summary_bg_selected);
-                v.postDelayed(new Runnable(){
-                    @Override
-                    public void run() {
-                        v.setBackgroundResource(R.drawable.summary_bg);
-                    }
-                }, 100);
-                
                 Intent intent = new Intent(MainActivity.this, LineChartActivity.class);
                 startActivity(intent);
+            }
+        });
+        findViewById(R.id.summary).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()){
+                case MotionEvent.ACTION_DOWN:
+                    v.setBackgroundResource(R.drawable.summary_bg_selected);
+                    break;
+                case MotionEvent.ACTION_UP:
+                    v.setBackgroundResource(R.drawable.summary_bg);
+                    break;
+                }
+                return false;
             }
         });
         

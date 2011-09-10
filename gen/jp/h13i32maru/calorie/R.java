@@ -40,6 +40,7 @@ containing a value of this type.
         public static final int round_corner_widget=0x7f020008;
         public static final int summary_bg=0x7f020009;
         public static final int summary_bg_selected=0x7f02000a;
+        public static final int summary_selected=0x7f02001b;
         public static final int text_nomarl=0x7f02000d;
         public static final int transparent_background=0x7f02000c;
         public static final int transparent_background2=0x7f02000b;

@@ -31,4 +31,5 @@
     <drawable name="chart_axis">#4d3d32</drawable>
     <drawable name="chart_axis_label">#4d3d32</drawable>
     <drawable name="chart_default_user_line">#ff4444</drawable>
+    <drawable name="summary_selected">#80634a</drawable>
 </resources>
