@@ -144,6 +144,7 @@ public class MainActivity extends Activity {
             mCalorieInfoList = mCalorieDAO.createNew();
         	CalorieBarBuilder.loadData(mMultiBar, mCalorieInfoList);
         	initCategoryArea();
+        	setSummary();
             break;
         case C.menu.settings:
         {
