@@ -60,20 +60,22 @@ public class LineChartActivity extends Activity {
 
     }
     
-    protected void setChart(int count){
+    protected void setChart(final int count){
         mLineChart.clear();
 
-        if(count >= CRUSH_LABEL){
-            mLineChart.setXAixsLabeler(new LineChart.AxisLabeler() {
-                @Override
-                public String getLabel(float axisNum) {
-                    if(axisNum % 2 == 0){
-                        return "" + (int)axisNum;
+        mLineChart.setXAixsLabeler(new LineChart.AxisLabeler() {
+            @Override
+            public String getLabel(float axisNum) {
+                int n = (int)(count - axisNum - 1);
+                if(count >= CRUSH_LABEL){
+                    if(n % 2 == 0){
+                        return "" + n;
                     }
                     return "";
                 }
-            });
-        }
+                return "" + n;
+            }
+        });
         
         //最近のデータがindex = 0に入っている
         List<List<CalorieInfo>> history = mDAO.getHistory(count);
